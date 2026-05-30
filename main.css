@@ -41,6 +41,11 @@ h1 {
     font-weight: bold;
 }
 
+#main-button {
+    font-size: 20px;
+    padding: 5px;
+}
+
 #defense-counter {
     position: fixed;
     top: 20px;
@@ -98,12 +103,12 @@ h1 {
     font-weight: bold;
 }
 
-
 #storm-info {
     position: fixed;
     top: 20px;
     right: 20px;
-    width: 300px;
+    width: 180px;
+    text-align: center;
 }
 
 #shop-info{
