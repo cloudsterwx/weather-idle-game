@@ -39,20 +39,20 @@ body {
 #description {
     background: rgba(255,255,255,0.5);
     border-radius: 10px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.3);
     padding: 10px;
-    margin-bottom: 10px;
     flex: 4;
+    margin-bottom: 20px;
 }
 
 #shop-container {
     flex: 3;
 }
 
-#start-wave, #storm-info, #multiplier {
+#start-wave, #storm-info, #multiplier, #storm-container {
     background: rgba(255,255,255,0.5);
     border-radius: 10px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -63,6 +63,16 @@ body {
     font-weight: bold;
 }
 
+#storm-container {
+    max-width: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#storm-title {
+    font-size: 24px;
+}
 
 #main-button {
     left: 0px;
@@ -74,7 +84,7 @@ body {
     font-weight: bold;
     background: #d1f2ff;
     border-radius: 5px;
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.5);
@@ -87,7 +97,7 @@ body {
     font-weight: bold;
     background: #d1f2ff;
     border-radius: 5px;
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.5);
@@ -118,7 +128,7 @@ body {
 #shop-container {
     background: rgba(255,255,255,0.5);
     border-radius: 10px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.3);
@@ -179,13 +189,13 @@ body {
     margin-left: 15px;
 }
 
-.buy-button {
+.buy-button, .number-purchased {
     position: fixed;
     font-size: 15px;
     font-weight: bold;
     background: #d1f2ff;
     border-radius: 5px;
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.5);
@@ -197,38 +207,21 @@ body {
     font-weight: bold;
 }
 
-#Sandbag-info {
+
+
+#sandbag-info, #barricade-info, #wall-info {
     display: flex;
     justify-content: start;
     align-items: center;
     gap: 10px;
 }
 
-#sandbag-buy {
+#sandbag-buy, #barricade-buy, #wall-buy {
     position: relative;
     left: 10px;
 }
 
-#Barricade-info {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    gap: 10px;
-}
-
-#barricade-buy {
-    position: relative;
-    left: 10px;
-}
-
-#Wall-info {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    gap: 10px;
-}
-
-#wall-buy {
+.number-purchased {
     position: relative;
     left: 10px;
 }
