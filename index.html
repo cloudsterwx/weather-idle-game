@@ -13,23 +13,28 @@
                             <div id="text-description">
                                 <div id="description-1">Welcome to the Weather Idle Game! Click the button below to generate defense units and protect your city from incoming storms. Use your defense units to upgrade your defenses and withstand stronger storms.</div>
                                 <p> </p>
-                                <div id="description-2">To play, simply click the button below to generate defense units. You can then use these units to upgrade your defenses and withstand stronger storms. Can you survive the onslaught of nature's fury?</div>
+                                <div id="description-2">To play, simply click the button below to generate coins. You can then use these units to upgrade your defenses and withstand stronger storms. Can you survive the onslaught of nature's fury?</div>
                             </div>
+                            <button id="main-button">
+                                Generate Coins
+                            </button>
                         </div>
 
                 <div id="shop-container">
                     <div id="shop-title">Shop:</div>
                         <div id="balance-counter">Balance: 0 Coins</div>
-                    <div id="stats"></div>
-                    <div id="actions"></div>
-                </div>
-            </div>
-
-            <div id="main-game">
-                <div id="main-click">
-                    <button id="main-button">
-                        Generate Coins
-                    </button>
+                    <div id="items">
+                        <div class="item-info" id="Sandbag-info">Sandbag: 10 Coins (1 Defense Unit)
+                            <button class="buy-button" id="sandbag-buy">Buy</button>
+                        </div>
+                        <div class="item-info" id="Barricade-info">Barricade: 50 Coins (6 Defense Units)
+                            <button class="buy-button" id="barricade-buy">Buy</button>
+                        </div>
+                        <div class="item-info" id="Wall-info">Wall: 200 Coins (25 Defense Units)
+                            <button class="buy-button" id="wall-buy">Buy</button>
+                        </div>
+                    </div>
+                    <div id="upgrade-container"></div>
                 </div>
             </div>
 
@@ -38,6 +43,16 @@
                 <button id="start-wave">Start Wave</button>
                 <div id="multiplier">Clicking Multiplier: x1 | Idle: 0 per hour</div>
             </div>
+
+            <div id="defense-container">
+                </div>
+
+                <div id="storm-container">
+                    <div id="storm1" class="storm">Storm 1</div>
+                    <div id="storm2" class="storm">Storm 2</div>
+                    <div id="storm3" class="storm">Storm 3</div>
+                </div>
+
             <script src="script.js"></script>
         </body>
         </html>

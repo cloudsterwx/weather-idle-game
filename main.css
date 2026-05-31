@@ -33,7 +33,7 @@ body {
 }
 
 #text-description {
-    margin: 10px;
+    margin: 15px;
 }
 
 #description {
@@ -44,7 +44,7 @@ body {
     -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.3);
     padding: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     flex: 4;
 }
 
@@ -52,11 +52,7 @@ body {
     flex: 3;
 }
 
-h1 {
-    margin: 20px;
-}
-
-#main-button, #start-wave, #storm-info, #multiplier {
+#start-wave, #storm-info, #multiplier {
     background: rgba(255,255,255,0.5);
     border-radius: 10px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -69,8 +65,20 @@ h1 {
 
 
 #main-button {
+    left: 0px;
+    bottom: 0px;
     font-size: 18px;
-    padding: 15px;
+    padding: 10px;
+    margin: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    background: #d1f2ff;
+    border-radius: 5px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    max-width: fit-content;
 }
 
 #defense-counter, #balance-counter {
@@ -162,4 +170,65 @@ h1 {
     font-weight: bold;
     order: 3;
     flex: 1;
+}
+
+#items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-left: 15px;
+}
+
+.buy-button {
+    position: fixed;
+    font-size: 15px;
+    font-weight: bold;
+    background: #d1f2ff;
+    border-radius: 5px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    max-width: fit-content;
+    top: 0px;
+    right: 0px;
+    margin: 10px;
+    padding: 10px;
+    font-weight: bold;
+}
+
+#Sandbag-info {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+}
+
+#sandbag-buy {
+    position: relative;
+    left: 10px;
+}
+
+#Barricade-info {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+}
+
+#barricade-buy {
+    position: relative;
+    left: 10px;
+}
+
+#Wall-info {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+}
+
+#wall-buy {
+    position: relative;
+    left: 10px;
 }
