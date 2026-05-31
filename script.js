@@ -53,10 +53,11 @@ document.getElementById("wall-buy").addEventListener("click", function(){
 });
 
 document.getElementById("start-wave").addEventListener("click", function(){
+    stormType = document.getElementById("storm1").innerHTML.split(" - ")[0];
     updateStorm();
 });
 
-generateStorm();
+let originalStorms = generateStorm();
 
 // avoid repeated storms, run every time the level changes
 function generateStorm(){
@@ -84,4 +85,20 @@ function updateStorm(){
 function findTotalPurchases(type){
     const count = allPurchases.filter(purchase => purchase === type).length;
     document.getElementById(`${type.toLowerCase()}-purchased`).innerHTML = `Purchased: ${count}`;
+}
+
+function stormImpact(type, level){
+    setInterval(function(){
+        defense = defense - (level/5 * 5);
+        document.getElementById("defense-counter").innerHTML = `Defense: ${Math.floor(defense)} Units`;
+
+        if(defense <= 0){
+            alert("Your city has been destroyed by the storm! Game Over.");
+            resetGame();
+        }
+    }, 500);
+}
+
+function resetGame(){
+    
 }
