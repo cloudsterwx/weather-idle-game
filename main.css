@@ -1,10 +1,39 @@
 html,
 body,
+
 p {
-  margin: 20px;
-  padding: 0;
-  color: black;
-  font-family: Arial, Helvetica, sans-serif;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    padding: 18px;
+    margin: 0;
+}
+
+#game-title {
+    font-size: 36px;
+    font-weight: bold;
+    padding: 10px;
+    margin: 3px;
+}
+
+#shop-title {
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px;
+    margin: 3px;
+}
+
+#layout {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+#text-description {
+    margin: 10px;
 }
 
 #description {
@@ -15,22 +44,19 @@ p {
     -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.3);
     padding: 10px;
-    max-width: 1040px;
     margin-bottom: 20px;
+    flex: 4;
 }
 
-#layout {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 20px;
+#shop-container {
+    flex: 3;
 }
 
 h1 {
     margin: 20px;
 }
 
-#main-button, #start-wave, #storm-info {
+#main-button, #start-wave, #storm-info, #multiplier {
     background: rgba(255,255,255,0.5);
     border-radius: 10px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -41,15 +67,14 @@ h1 {
     font-weight: bold;
 }
 
+
 #main-button {
-    font-size: 20px;
-    padding: 5px;
+    font-size: 18px;
+    padding: 15px;
 }
 
-#defense-counter {
+#defense-counter, #balance-counter {
     position: fixed;
-    top: 20px;
-    right: 20px;
     font-size: 18px;
     font-weight: bold;
     background: #d1f2ff;
@@ -58,23 +83,10 @@ h1 {
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.5);
-    padding: 15px;
-    font-weight: bold;
-}
-
-#multiplier {
-    position: fixed;
-    top: 20px;
-    right: 300px;
-    font-size: 18px;
-    font-weight: bold;
-    background: #d1f2ff;
-    border-radius: 5px;
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 15px;
+    top: 0px;
+    right: 0px;
+    margin: 20px;
+    padding: 10px;
     font-weight: bold;
 }
 
@@ -91,26 +103,63 @@ h1 {
     width: 200px;
 }
 
-#game-container {
-    flex: 1;
-    display: flex;
+#shop-info {
+    font-weight: bold;
 }
 
-#start-wave {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
+#shop-container {
+    background: rgba(255,255,255,0.5);
+    border-radius: 10px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 10px;
     font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    gap: 20px;
+}
+
+#layout2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    position: fixed;
+    margin-left: 20px;
+    margin-right: 20px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
 }
 
 #storm-info {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    width: 180px;
-    text-align: center;
+    font-size: 16px;
+    bottom: 0px;
+    left: 0px;
+    max-width: fit-content;
+    padding: 12px;
+    order: 1;
+    flex: 1;
 }
 
-#shop-info{
+#multiplier {
+    font-size: 16px;
+    max-width: fit-content;
     font-weight: bold;
+    padding: 10px;
+    font-weight: bold;
+    order: 2;
+    flex: 1;
+}
+
+#start-wave {
+    font-size: 16px;
+    max-width: fit-content;
+    padding: 12px;
+    font-weight: bold;
+    order: 3;
+    flex: 1;
 }

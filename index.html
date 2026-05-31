@@ -7,28 +7,37 @@
 
         <body style="background-color: #87CEEB;">
             <div id="layout">
-            <div id="description">
-                <p id="game-title">Weather Idle Game</p>
-                <div id="defense-counter">Defense: 0 units</div>
-                <div id="multiplier">Multiplier: x1, 0 per hour</div>
-                <p>Welcome to the Weather Idle Game! Click the storm icon to generate defense units and protect your city from incoming storms. Use your defense units to upgrade your defenses and withstand stronger storms. Can you survive the onslaught of nature's fury?</p>
-                <p>To play, simply click the button below to generate defense units. You can then use these units to upgrade your defenses and withstand stronger storms.</p>
-            </div>
-            <div id="game-container">
-                <div id="stats"></div>
-                <div id="actions"></div>
-                <p id="shop-info">Shop:</p>
-            </div></div>
-            <div id="main-game">
-            <div id="main-click">
-                <button id="main-button">
-                <p>Generate Defense Units</p>
-                </button>
-            </div>
-            </div>
-            <button id="start-wave">Start Wave</button>
-            <script src="script.js"></script>
+                <div id="description">
+                    <div id="game-title">Weather Idle Game</div>
+                        <div id="defense-counter">Defense: 0 Units</div>
+                            <div id="text-description">
+                                <div id="description-1">Welcome to the Weather Idle Game! Click the button below to generate defense units and protect your city from incoming storms. Use your defense units to upgrade your defenses and withstand stronger storms.</div>
+                                <p> </p>
+                                <div id="description-2">To play, simply click the button below to generate defense units. You can then use these units to upgrade your defenses and withstand stronger storms. Can you survive the onslaught of nature's fury?</div>
+                            </div>
+                        </div>
 
-            <p id="storm-info">Current Storm: None</p>
-        </body> 
+                <div id="shop-container">
+                    <div id="shop-title">Shop:</div>
+                        <div id="balance-counter">Balance: 0 Coins</div>
+                    <div id="stats"></div>
+                    <div id="actions"></div>
+                </div>
+            </div>
+
+            <div id="main-game">
+                <div id="main-click">
+                    <button id="main-button">
+                        Generate Coins
+                    </button>
+                </div>
+            </div>
+
+            <div id="layout2">
+                <p id="storm-info">Current Storm Wave: N/A</p>
+                <button id="start-wave">Start Wave</button>
+                <div id="multiplier">Clicking Multiplier: x1 | Idle: 0 per hour</div>
+            </div>
+            <script src="script.js"></script>
+        </body>
         </html>

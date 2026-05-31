@@ -1,14 +1,14 @@
-let defense = 0;
+let coins = 0;
 let multiplier = 1;
 
-// click = add defense
+// click = add coins
 document.getElementById("main-button").addEventListener("click", function(){
-    defense = defense + 1 * multiplier;
-    if(defense === 1){
-       document.getElementById("defense-counter").innerHTML = `Defense: ${defense} unit`;
+    coins = coins + 1 * multiplier;
+    if(coins === 1){
+       document.getElementById("balance-counter").innerHTML = `Balance: ${coins} Coin`;
     }
     else{
-        document.getElementById("defense-counter").innerHTML = `Defense: ${defense} units`;
+        document.getElementById("balance-counter").innerHTML = `Balance: ${coins} Coins`;
     }
     console.log("a");
 })
