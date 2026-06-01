@@ -11,6 +11,21 @@ body {
     margin: 0;
 }
 
+#layout {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+#column1 {
+    flex: 3;
+}
+
+#column2 {
+    flex: 2;
+}
+
 #game-title {
     font-size: 36px;
     font-weight: bold;
@@ -23,13 +38,6 @@ body {
     font-weight: bold;
     padding: 10px;
     margin: 3px;
-}
-
-#layout {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 20px;
 }
 
 #text-description {
@@ -74,15 +82,19 @@ body {
     font-size: 24px;
 }
 
+#text-description {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 #main-button {
-    left: 0px;
-    bottom: 0px;
     font-size: 18px;
     padding: 10px;
     margin: 10px;
     font-size: 18px;
     font-weight: bold;
-    background: #d1f2ff;
+    background: rgba(209, 242, 255, 0.1);
     border-radius: 8px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5px);
@@ -91,11 +103,34 @@ body {
     max-width: fit-content;
 }
 
+#defense-counter img {
+    width: 25px;
+    height: 25px;
+    margin-right: 2px;
+}
+
+#main-button img {
+    width: 25px;
+    height: 25px;
+    margin-right: 2px;
+}
+
+#balance-counter img{
+    width: 25px;
+    height: 25px;
+    margin-right: 2px;
+}
+
+#defense-counter, #balance-counter, #main-button {
+    display: flex;
+    align-items: center;
+    gap: 5px;}
+
 #defense-counter, #balance-counter {
     position: fixed;
     font-size: 18px;
     font-weight: bold;
-    background: #d1f2ff;
+    background: rgba(209, 242, 255, 0.1);
     border-radius: 8px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5px);
@@ -174,7 +209,7 @@ body {
 }
 
 #start-wave {
-    font-size: 16px;
+    font-size: 20px;
     max-width: fit-content;
     padding: 12px;
     font-weight: bold;
@@ -193,7 +228,7 @@ body {
     position: fixed;
     font-size: 15px;
     font-weight: bold;
-    background: #d1f2ff;
+    background: rgba(209, 242, 255, 0.1);
     border-radius: 8px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5px);
@@ -207,14 +242,14 @@ body {
     font-weight: bold;
 }
 
-#sandbag-info, #barricade-info, #wall-info {
+.item-info {
     display: flex;
     justify-content: start;
     align-items: center;
     gap: 10px;
 }
 
-#sandbag-buy, #barricade-buy, #wall-buy {
+.item-info button {
     position: relative;
     left: 10px;
 }
