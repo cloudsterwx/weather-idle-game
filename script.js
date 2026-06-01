@@ -69,6 +69,51 @@ document.getElementById("wall-buy").addEventListener("click", function(){
     findTotalPurchases("Wall");
 });
 
+document.getElementById("floodgate-buy").addEventListener("click", function(){
+    if(coins >= 1000){
+        coins = coins - 1000;
+        defense = defense + 1100;
+        document.getElementById("defense-counter-text").innerHTML = `Defense: ${Math.floor(defense)} Units`;
+        document.getElementById("balance-counter-text").innerHTML = `Balance: ${Math.floor(coins)} Coins`;
+        allPurchases.push("Floodgate");
+    }
+    findTotalPurchases("Floodgate");
+});
+
+document.getElementById("levee-buy").addEventListener("click", function(){
+    if(coins >= 5000){
+        coins = coins - 5000;
+        defense = defense + 5500;
+        document.getElementById("defense-counter-text").innerHTML = `Defense: ${Math.floor(defense)} Units`;
+        document.getElementById("balance-counter-text").innerHTML = `Balance: ${Math.floor(coins)} Coins`;
+        allPurchases.push("Levee");
+    }
+    findTotalPurchases("Levee");
+});
+
+document.getElementById("hospital-buy").addEventListener("click", function(){
+    if(coins >= 25000){
+        coins = coins - 25000;
+        defense = defense + 27500;
+        document.getElementById("defense-counter-text").innerHTML = `Defense: ${Math.floor(defense)} Units`;
+        document.getElementById("balance-counter-text").innerHTML = `Balance: ${Math.floor(coins)} Coins`;
+        allPurchases.push("Hospital");
+    }
+    findTotalPurchases("Hospital");
+});
+
+document.getElementById("dam-buy").addEventListener("click", function(){
+    if(coins >= 100000){
+        coins = coins - 100000;
+        defense = defense + 110000;
+        document.getElementById("defense-counter-text").innerHTML = `Defense: ${Math.floor(defense)} Units`;
+        document.getElementById("balance-counter-text").innerHTML = `Balance: ${Math.floor(coins)} Coins`;
+        allPurchases.push("Dam");
+    }
+    findTotalPurchases("Dam");
+});
+
+// start button, 2.5s timeout (same time it takes for the wave to end)
 let canClickStart = true;
 document.getElementById("start-wave").addEventListener("click", function(){
     if(!canClickStart) {
