@@ -1,21 +1,40 @@
+let stormArray = ["Thunderstorm", "Hurricane", "Tornado", "Blizzard", "Flood"];
+let stormLevels = ["", "Level 1", "Level 2", "Level 3", "Level 4", "Level 5"];
+let allPurchases = [];
+
 let coins = 0;
 let multiplier = 1;
 let defense = 0;
 let level = 1;
 let idle = 0;
-let stormArray = ["Thunderstorm", "Hurricane", "Tornado", "Blizzard", "Flood"];
-let stormLevels = ["", "Level 1", "Level 2", "Level 3", "Level 4", "Level 5"];
-let allPurchases = [];
 
-// idle coins generator
+document.getElementById("start-button").addEventListener("click", function(){
+    document.getElementById("start-container").style.display = "none";
+    generateStorm();
+    continuousStorms();
+});
+
+document.getElementById("load-save-button").addEventListener("click", function(){
+    const savedState = JSON.parse(localStorage.getItem("weatherIdleGameSave"));
+    if(savedState.storms.length > 0){
+    document.getElementById("start-container").style.display = "none";
+    localStorageLoad();
+    continuousStorms();
+    } else{
+        alert("No save file found.");
+    }
+});
+
+// idle coins + saving
 let idleInterval = setInterval(() => {
     coins = coins + idle;
     document.getElementById("balance-counter-text").innerHTML = `Balance: ${Math.floor(coins)} Coins`;
+    localStorageSave();
 }, 1000);
 
 // click = add coins
 document.getElementById("main-button").addEventListener("click", function(){
-    coins = coins + 1 * multiplier;
+    coins = coins + 1;
     if(coins === 1){
        document.getElementById("balance-counter-text").innerHTML = `Balance: ${Math.floor(coins)} Coin`;
     }
@@ -57,7 +76,7 @@ Object.keys(shopItems).forEach(item => {
     });
 });
 
-// start button, 2.5s timeout (same time it takes for the storm to hit) to prevent spamming the button and breaking the game
+// start button: wave starts when clicked or after 30s cooldown ends
 let canClickStart = true;
 document.getElementById("start-wave").addEventListener("click", function(){
     if(!canClickStart) {
@@ -72,7 +91,20 @@ document.getElementById("start-wave").addEventListener("click", function(){
     stormImpact(stormType, level);
 });
 
-generateStorm();
+// starts a storm every 30 seconds to increase game difficulty
+function continuousStorms(){
+    let count = 30;
+    let cooldown = setInterval(() => {
+        if (count > 0){
+            count--;
+            document.getElementById("start-wave").innerHTML = `Start Wave (or in ${count}s)`;
+        } else {
+            let stormType = document.getElementById("storm1").innerHTML.split(" - ")[0];
+            stormImpact(stormType, level);
+            clearInterval(cooldown);
+        }
+    }, 1000)
+}
 
 // avoid repeated storms, run every time the game starts or the level changes
 function generateStorm(){
@@ -112,6 +144,7 @@ function stormImpact(type, level){
         document.body.style.backgroundColor = "rgb(112, 112, 112)";
         defenseSubtract = defenseSubtract * 1.5;
     } else if (type === "Hurricane"){
+        document.body.style.backgroundColor = "rgb(0, 106, 255)";
         defenseSubtract = defenseSubtract * 1.25;
     } else if (type === "Blizzard"){
         document.body.style.backgroundColor = "rgb(227, 227, 227)";
@@ -119,6 +152,8 @@ function stormImpact(type, level){
     } else if (type === "Flood"){
         document.body.style.backgroundColor = "rgba(255,0,0,0.5)";
         defenseSubtract = defenseSubtract * 1.05;
+    } else if (type === "Thunderstorm"){
+        document.body.style.backgroundColor = "rgb(67, 67, 67)";
     }
     let count = 0;
     let stormInterval = setInterval(() => {
@@ -141,6 +176,7 @@ function stormImpact(type, level){
             idle = idle + (level * 0.05);
             document.getElementById("storm-info").innerHTML = `Current Storm Wave: N/A`;
             document.getElementById("multiplier").innerHTML = `Clicking Multiplier: ${multiplier.toFixed(2)}x | Idle: ${idle.toFixed(2)} coins per second`;
+            continuousStorms();
         }
     }, 250);
 }
@@ -157,4 +193,53 @@ function resetGame(){
     document.getElementById("multiplier").innerHTML = `Clicking Multiplier: ${multiplier.toFixed(2)}x | Idle: ${idle.toFixed(2)} coins per second`;
     generateStorm();
     document.body.style.backgroundColor = "rgb(135, 206, 235)";
+    continuousStorms();
+}
+
+function localStorageSave(){
+
+    if(storm1 !== "Storm 1") {
+    const storm1 = document.getElementById("storm1").innerHTML.split(" - ")[0];
+    const storm2 = document.getElementById("storm2").innerHTML.split(" - ")[0];
+    const storm3 = document.getElementById("storm3").innerHTML.split(" - ")[0];
+    } else (generateStorm())
+    let stormArray = [storm1,storm2,storm3];
+
+    const gameState = {
+        coins: coins,
+        multiplier: multiplier,
+        idle: idle,
+        allPurchases: allPurchases,
+        defense: defense,
+        level: level,
+        storms: stormArray
+    }
+    
+    localStorage.setItem("weatherIdleGameSave", JSON.stringify(gameState));
+}
+
+function localStorageLoad(){
+    const savedState = JSON.parse(localStorage.getItem("weatherIdleGameSave"));
+    if(savedState){
+        coins = savedState.coins;
+        multiplier = savedState.multiplier;
+        idle = savedState.idle;
+        allPurchases = savedState.allPurchases;
+        defense = savedState.defense;
+        level = savedState.level;
+        let storms = savedState.storms;
+        if(storms.length > 0){
+        storms = savedState.storms;
+        } else {generateStorm();
+        } document.getElementById("balance-counter-text").innerHTML = `Balance: ${Math.floor(coins)} Coins`;
+        document.getElementById("defense-counter-text").innerHTML = `Defense: ${Math.floor(defense)} Units`;
+        document.getElementById("multiplier").innerHTML = `Clicking Multiplier: ${multiplier.toFixed(2)}x | Idle: ${idle.toFixed(2)} coins per second`;
+        document.getElementById("storm1").innerHTML = `${storms[0]} - Level ${level}`;
+        document.getElementById("storm2").innerHTML = `${storms[1]} - Level ${level}`;
+        document.getElementById("storm3").innerHTML = `${storms[2]} - Level ${level}`;
+
+        Object.keys(shopItems).forEach(item => {
+            document.getElementById(`${item.toLowerCase()}-purchased`).innerHTML = `Purchased: ${findTotalPurchases(item)}`;
+        });
+    }
 }
