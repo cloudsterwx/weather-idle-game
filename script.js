@@ -24,96 +24,40 @@ document.getElementById("main-button").addEventListener("click", function(){
     }
 });
 
-// shop items (i should turn this into a function somehow)
-document.getElementById("brick-buy").addEventListener("click", function(){
-    if(coins >= 2){
-        coins = coins - 2;
-        defense = defense + 2;
+// object list for shop
+const shopItems = {
+    "Brick": {cost: 2, defense: 2},
+    "Sandbag": {cost: 10, defense: 11},
+    "Barricade": {cost: 50, defense: 55},
+    "Wall": {cost: 200, defense: 220},
+    "Floodgate": {cost: 1000, defense: 1100},
+    "Levee": {cost: 5000, defense: 5500},
+    "Hospital": {cost: 25000, defense: 27500},
+    "Dam": {cost: 100000, defense: 110000}
+}
+
+function purchaseItem(name){
+    let item = shopItems[name];
+    let multiplier = 1 + (0.01 * findTotalPurchases(name));
+    if(coins >= item.cost){
+        coins = coins - item.cost
+        defense = defense + item.defense;
         document.getElementById("defense-counter-text").innerHTML = `Defense: ${Math.floor(defense)} Units`;
         document.getElementById("balance-counter-text").innerHTML = `Balance: ${Math.floor(coins)} Coins`;
-        allPurchases.push("Brick");
+        allPurchases.push(name);
+    } else {
+        alert("Not enough coins to purchase this item!");
     }
-    findTotalPurchases("Brick");
+    findTotalPurchases(name);
+}
+
+Object.keys(shopItems).forEach(item => {
+    document.getElementById(`${item.toLowerCase()}-buy`).addEventListener("click", function(){
+        purchaseItem(item);
+    });
 });
 
-document.getElementById("sandbag-buy").addEventListener("click", function(){
-    if(coins >= 10){
-        coins = coins - 10;
-        defense = defense + 11;
-        document.getElementById("defense-counter-text").innerHTML = `Defense: ${Math.floor(defense)} Units`;
-        document.getElementById("balance-counter-text").innerHTML = `Balance: ${Math.floor(coins)} Coins`;
-        allPurchases.push("Sandbag");
-    }
-    findTotalPurchases("Sandbag");
-});
-
-document.getElementById("barricade-buy").addEventListener("click", function(){
-    if(coins >= 50){
-        coins = coins - 50;
-        defense = defense + 55;
-        document.getElementById("defense-counter-text").innerHTML = `Defense: ${Math.floor(defense)} Units`;
-        document.getElementById("balance-counter-text").innerHTML = `Balance: ${Math.floor(coins)} Coins`;
-        allPurchases.push("Barricade");
-    }
-    findTotalPurchases("Barricade");
-});
-
-document.getElementById("wall-buy").addEventListener("click", function(){
-    if(coins >= 200){
-        coins = coins - 200;
-        defense = defense + 220;
-        document.getElementById("defense-counter-text").innerHTML = `Defense: ${Math.floor(defense)} Units`;
-        document.getElementById("balance-counter-text").innerHTML = `Balance: ${Math.floor(coins)} Coins`;
-        allPurchases.push("Wall");
-    }
-    findTotalPurchases("Wall");
-});
-
-document.getElementById("floodgate-buy").addEventListener("click", function(){
-    if(coins >= 1000){
-        coins = coins - 1000;
-        defense = defense + 1100;
-        document.getElementById("defense-counter-text").innerHTML = `Defense: ${Math.floor(defense)} Units`;
-        document.getElementById("balance-counter-text").innerHTML = `Balance: ${Math.floor(coins)} Coins`;
-        allPurchases.push("Floodgate");
-    }
-    findTotalPurchases("Floodgate");
-});
-
-document.getElementById("levee-buy").addEventListener("click", function(){
-    if(coins >= 5000){
-        coins = coins - 5000;
-        defense = defense + 5500;
-        document.getElementById("defense-counter-text").innerHTML = `Defense: ${Math.floor(defense)} Units`;
-        document.getElementById("balance-counter-text").innerHTML = `Balance: ${Math.floor(coins)} Coins`;
-        allPurchases.push("Levee");
-    }
-    findTotalPurchases("Levee");
-});
-
-document.getElementById("hospital-buy").addEventListener("click", function(){
-    if(coins >= 25000){
-        coins = coins - 25000;
-        defense = defense + 27500;
-        document.getElementById("defense-counter-text").innerHTML = `Defense: ${Math.floor(defense)} Units`;
-        document.getElementById("balance-counter-text").innerHTML = `Balance: ${Math.floor(coins)} Coins`;
-        allPurchases.push("Hospital");
-    }
-    findTotalPurchases("Hospital");
-});
-
-document.getElementById("dam-buy").addEventListener("click", function(){
-    if(coins >= 100000){
-        coins = coins - 100000;
-        defense = defense + 110000;
-        document.getElementById("defense-counter-text").innerHTML = `Defense: ${Math.floor(defense)} Units`;
-        document.getElementById("balance-counter-text").innerHTML = `Balance: ${Math.floor(coins)} Coins`;
-        allPurchases.push("Dam");
-    }
-    findTotalPurchases("Dam");
-});
-
-// start button, 2.5s timeout (same time it takes for the wave to end)
+// start button, 2.5s timeout (same time it takes for the storm to hit) to prevent spamming the button and breaking the game
 let canClickStart = true;
 document.getElementById("start-wave").addEventListener("click", function(){
     if(!canClickStart) {
@@ -128,9 +72,9 @@ document.getElementById("start-wave").addEventListener("click", function(){
     stormImpact(stormType, level);
 });
 
-let originalStorms = generateStorm();
+generateStorm();
 
-// avoid repeated storms, run every time the game starts
+// avoid repeated storms, run every time the game starts or the level changes
 function generateStorm(){
     let updatingStormArray = stormArray;
     let randomStorm = Math.floor(Math.random() * updatingStormArray.length);
@@ -157,6 +101,7 @@ function updateStorm(){
 function findTotalPurchases(type){
     const count = allPurchases.filter(purchase => purchase === type).length;
     document.getElementById(`${type.toLowerCase()}-purchased`).innerHTML = `Purchased: ${count}`;
+    return count;
 }
 
 // calculates stuff based on the storm
@@ -164,17 +109,19 @@ function stormImpact(type, level){
     let defenseSubtract = level * 10
     document.getElementById("storm-info").innerHTML = `Current Storm Wave: ${type} - ${stormLevels[level]}`;
     if(type === "Tornado"){
+        document.body.style.backgroundColor = "rgb(112, 112, 112)";
         defenseSubtract = defenseSubtract * 1.5;
     } else if (type === "Hurricane"){
         defenseSubtract = defenseSubtract * 1.25;
     } else if (type === "Blizzard"){
+        document.body.style.backgroundColor = "rgb(227, 227, 227)";
         defenseSubtract = defenseSubtract * 1.1;
     } else if (type === "Flood"){
+        document.body.style.backgroundColor = "rgba(255,0,0,0.5)";
         defenseSubtract = defenseSubtract * 1.05;
     }
     let count = 0;
     let stormInterval = setInterval(() => {
-        document.body.style.backgroundColor = "rgba(255,0,0,0.5)";
         defense = defense - defenseSubtract / 10;
         document.getElementById("defense-counter-text").innerHTML = `Defense: ${Math.floor(defense)} Units`;
         if(defense <= 0){
