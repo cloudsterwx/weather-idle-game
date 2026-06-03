@@ -2,6 +2,7 @@ let stormArray = ["Thunderstorm", "Hurricane", "Tornado", "Blizzard", "Flood"];
 let stormLevels = ["", "Level 1", "Level 2", "Level 3", "Level 4", "Level 5"];
 let allPurchases = [];
 
+let globalCount = 30;
 let coins = 0;
 let multiplier = 1;
 let defense = 0;
@@ -93,11 +94,10 @@ document.getElementById("start-wave").addEventListener("click", function(){
 
 // starts a storm every 30 seconds to increase game difficulty
 function continuousStorms(){
-    let count = 30;
     let cooldown = setInterval(() => {
-        if (count > 0){
-            count--;
-            document.getElementById("start-wave").innerHTML = `Start Wave (or in ${count}s)`;
+        if (globalCount > 0){
+            globalCount--;
+            document.getElementById("start-wave").innerHTML = `Start Wave (or in ${globalCount}s)`;
         } else {
             let stormType = document.getElementById("storm1").innerHTML.split(" - ")[0];
             stormImpact(stormType, level);
@@ -176,6 +176,7 @@ function stormImpact(type, level){
             idle = idle + (level * 0.05);
             document.getElementById("storm-info").innerHTML = `Current Storm Wave: N/A`;
             document.getElementById("multiplier").innerHTML = `Clicking Multiplier: ${multiplier.toFixed(2)}x | Idle: ${idle.toFixed(2)} coins per second`;
+            globalCount = 30;
             continuousStorms();
         }
     }, 250);
@@ -241,7 +242,6 @@ function localStorageLoad(){
         if(storms.length === 0){
         generateStorm();
         }
-
 
         Object.keys(shopItems).forEach(item => {
             document.getElementById(`${item.toLowerCase()}-purchased`).innerHTML = `Purchased: ${findTotalPurchases(item)}`;

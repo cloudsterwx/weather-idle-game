@@ -7,12 +7,20 @@
 
         <body style="background-color: rgb(135, 206, 235);">
             <div id="start-container">
-            <div id="start-title">Weather Idle Game</div>
+                <div id="start-description">
+            <div id="start-title"> Weather Idle Game</div>
+                <div id="text-description-2">
+                        <div id="description-1-2">Welcome to the Weather Idle Game! Click the start button below to start the game. This will begin a set of storms that occur every thirty seconds.</div>
+                        <div id="description-2-2">To survive these storms, you need to use the designated "Generate Coins" button to increase your defense for the specific storm you are about to encounter.</div>
+                        <div id="description-3-2">Defeating a wave of storms will increase your multiplier (coins/click) and idle coin generation (coins/second). Each wave will also increase the next storm's strength (level), so keep upgrading your defenses. Good luck!</div>
+                    </div>
+                    </div>
                 <div id="button-container">
                 <button id="start-button">Start New Game</button>
                 <button id="load-save-button">Load From Save</button>
                 </div>
                 </div>
+            </div>
             </div>
             <div id="layout">
                 <div id="column1">
@@ -27,10 +35,13 @@
                         <div id="description-2">To play, simply click the button below to generate coins. You can then use these units to upgrade your defenses and withstand stronger storms. Can you survive the onslaught of nature's fury?</div>
                         <div id="description-3">Defeating a wave of storms will increase your multiplier (coins/click) and idle coin generation (coins/second). Each wave will also increase the next storm's strength (level), so keep upgrading your defenses. Good luck!</div>
                     </div>
+                    <div id="button-group">
                         <button id="main-button">
                             <img src="coinicon.png" alt="Coin Icon"/>
                                 <span id="main-button-text">Generate Coins</span>
                         </button>
+                        <button id="start-wave">Start Wave</button>
+                    </div>
                     </div>
 
                     <div id="storm-container">
@@ -86,7 +97,6 @@
 
             <div id="layout2">
                 <p id="storm-info">Current Storm Wave: N/A</p>
-                <button id="start-wave">Start Wave</button>
                 <div id="multiplier">Clicking Multiplier: x1 | Idle: 0 coins per second</div>
             </div>
             </div>
