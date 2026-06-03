@@ -77,27 +77,12 @@ Object.keys(shopItems).forEach(item => {
     });
 });
 
-// start button: wave starts when clicked or after 30s cooldown ends
-let canClickStart = true;
-document.getElementById("start-wave").addEventListener("click", function(){
-    if(!canClickStart) {
-        alert("Clicking too fast! Please wait a moment before starting the next wave.");
-    return;
-    } canClickStart = false;
-    setTimeout(() => {
-        canClickStart = true;
-    }, 2500);
-
-    let stormType = document.getElementById("storm1").innerHTML.split(" - ")[0];
-    stormImpact(stormType, level);
-});
-
 // starts a storm every 30 seconds to increase game difficulty
 function continuousStorms(){
     let cooldown = setInterval(() => {
         if (globalCount > 0){
             globalCount--;
-            document.getElementById("start-wave").innerHTML = `Start Wave (or in ${globalCount}s)`;
+            document.getElementById("start-wave").innerHTML = `Wave starting in ${globalCount}s...`;
         } else {
             let stormType = document.getElementById("storm1").innerHTML.split(" - ")[0];
             stormImpact(stormType, level);
@@ -164,7 +149,7 @@ function stormImpact(type, level){
             document.body.style.backgroundColor = "rgb(81, 0, 0)";
             setTimeout(() => {
                 alert("Game Over! Your defense has been breached by the storm.");
-                resetGame();
+                window.location.reload();
             }, 1000);
         }
         count++;
@@ -180,21 +165,6 @@ function stormImpact(type, level){
             continuousStorms();
         }
     }, 250);
-}
-
-function resetGame(){
-    coins = 0;
-    defense = 0;
-    level = 1;
-    multiplier = 1;
-    idle = 0;
-    allPurchases = [];
-    document.getElementById("balance-counter-text").innerHTML = `Balance: ${Math.floor(coins)} Coins`;
-    document.getElementById("defense-counter-text").innerHTML = `Defense: ${Math.floor(defense)} Units`;
-    document.getElementById("multiplier").innerHTML = `Clicking Multiplier: ${multiplier.toFixed(2)}x | Idle: ${idle.toFixed(2)} coins per second`;
-    generateStorm();
-    document.body.style.backgroundColor = "rgb(135, 206, 235)";
-    continuousStorms();
 }
 
 function localStorageSave(){
@@ -215,9 +185,6 @@ function localStorageSave(){
         level: level,
         storms: storms
     }
-
-console.log (storms);
-
     localStorage.setItem("weatherIdleGameSave", JSON.stringify(gameState));
 }
 
@@ -231,9 +198,7 @@ function localStorageLoad(){
         defense = savedState.defense;
         level = savedState.level;
         let storms = savedState.storms;
-        if(storms.length < 0){
-        storms = savedState.storms;
-        } document.getElementById("balance-counter-text").innerHTML = `Balance: ${Math.floor(coins)} Coins`;
+        document.getElementById("balance-counter-text").innerHTML = `Balance: ${Math.floor(coins)} Coins`;
         document.getElementById("defense-counter-text").innerHTML = `Defense: ${Math.floor(defense)} Units`;
         document.getElementById("multiplier").innerHTML = `Clicking Multiplier: ${multiplier.toFixed(2)}x | Idle: ${idle.toFixed(2)} coins per second`;
         document.getElementById("storm1").innerHTML = `${storms[0]} - Level ${level}`;
