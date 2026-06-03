@@ -16,7 +16,7 @@ document.getElementById("start-button").addEventListener("click", function(){
 
 document.getElementById("load-save-button").addEventListener("click", function(){
     const savedState = JSON.parse(localStorage.getItem("weatherIdleGameSave"));
-    if(savedState.storms.length > 0){
+    if(savedState){
     document.getElementById("start-container").style.display = "none";
     localStorageLoad();
     continuousStorms();
@@ -34,7 +34,7 @@ let idleInterval = setInterval(() => {
 
 // click = add coins
 document.getElementById("main-button").addEventListener("click", function(){
-    coins = coins + 1;
+    coins = coins + 1 * multiplier;
     if(coins === 1){
        document.getElementById("balance-counter-text").innerHTML = `Balance: ${Math.floor(coins)} Coin`;
     }
@@ -197,13 +197,13 @@ function resetGame(){
 }
 
 function localStorageSave(){
-
-    if(storm1 !== "Storm 1") {
     const storm1 = document.getElementById("storm1").innerHTML.split(" - ")[0];
     const storm2 = document.getElementById("storm2").innerHTML.split(" - ")[0];
     const storm3 = document.getElementById("storm3").innerHTML.split(" - ")[0];
-    } else (generateStorm())
-    let stormArray = [storm1,storm2,storm3];
+    let storms = [storm1,storm2,storm3];
+    if(storm1 === "Storm 1") {
+        return("a");
+    }
 
     const gameState = {
         coins: coins,
@@ -212,9 +212,11 @@ function localStorageSave(){
         allPurchases: allPurchases,
         defense: defense,
         level: level,
-        storms: stormArray
+        storms: storms
     }
-    
+
+console.log (storms);
+
     localStorage.setItem("weatherIdleGameSave", JSON.stringify(gameState));
 }
 
@@ -228,15 +230,18 @@ function localStorageLoad(){
         defense = savedState.defense;
         level = savedState.level;
         let storms = savedState.storms;
-        if(storms.length > 0){
+        if(storms.length < 0){
         storms = savedState.storms;
-        } else {generateStorm();
         } document.getElementById("balance-counter-text").innerHTML = `Balance: ${Math.floor(coins)} Coins`;
         document.getElementById("defense-counter-text").innerHTML = `Defense: ${Math.floor(defense)} Units`;
         document.getElementById("multiplier").innerHTML = `Clicking Multiplier: ${multiplier.toFixed(2)}x | Idle: ${idle.toFixed(2)} coins per second`;
         document.getElementById("storm1").innerHTML = `${storms[0]} - Level ${level}`;
         document.getElementById("storm2").innerHTML = `${storms[1]} - Level ${level}`;
         document.getElementById("storm3").innerHTML = `${storms[2]} - Level ${level}`;
+        if(storms.length === 0){
+        generateStorm();
+        }
+
 
         Object.keys(shopItems).forEach(item => {
             document.getElementById(`${item.toLowerCase()}-purchased`).innerHTML = `Purchased: ${findTotalPurchases(item)}`;
