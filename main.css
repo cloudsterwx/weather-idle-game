@@ -11,7 +11,6 @@ body {
     margin: 0;
 }
 
-
 #start-container {
     position: fixed;
     display: flex;
@@ -22,6 +21,13 @@ body {
     inset: 0;
     z-index: 1000;
     min-height: 100vh;
+
+    opacity: 1;
+    transition: opacity 0.2s ease-in-out;
+}
+
+#start-container.fade{
+    opacity: 0;
 }
 
 #start-description {
@@ -125,7 +131,7 @@ body {
     flex: 3;
 }
 
-#storm-info, #multiplier, #storm-container {
+#storm-container {
     background: rgba(255,255,255,0.5);
     border-radius: 12px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -252,30 +258,43 @@ body {
     align-items: center;
     text-align: center;
     position: fixed;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-right: 15px;
+    margin-left: 15px;
+    margin-bottom: 15px;
     bottom: 0px;
     left: 0px;
     right: 0px;
 }
 
-#storm-info {
+#storm-info, #multiplier, #notifications {
+    background: rgba(255,255,255,0.5);
+    border-radius: 12px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 10px;
+    font-weight: bold;
     font-size: 16px;
-    bottom: 0px;
-    left: 0px;
+    justify-content: space-between;
+}
+
+#storm-info {
     max-width: fit-content;
-    padding: 12px;
     order: 1;
     flex: 1;
 }
 
 #multiplier {
-    font-size: 16px;
     max-width: fit-content;
-    font-weight: bold;
-    padding: 10px;
-    font-weight: bold;
     order: 2;
+    flex: 1;
+}
+
+#notifications {
+    max-width: fit-content;
+    padding: 12px;
+    order: 3;
     flex: 1;
 }
 

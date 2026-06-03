@@ -8,9 +8,15 @@ let multiplier = 1;
 let defense = 0;
 let level = 1;
 let idle = 0;
+let stormRound = 1;
 
 document.getElementById("start-button").addEventListener("click", function(){
-    document.getElementById("start-container").style.display = "none";
+    document.getElementById("start-container").classList.toggle("fade");
+    for(let i=0; i<1; i++){
+        const startDelay = setInterval(() => {
+            document.getElementById("start-container").style.display = "none";
+        }, 200);
+    };
     generateStorm();
     continuousStorms();
 });
@@ -18,7 +24,12 @@ document.getElementById("start-button").addEventListener("click", function(){
 document.getElementById("load-save-button").addEventListener("click", function(){
     const savedState = JSON.parse(localStorage.getItem("weatherIdleGameSave"));
     if(savedState){
-    document.getElementById("start-container").style.display = "none";
+    document.getElementById("start-container").classList.toggle("fade");
+    for(let i=0; i<1; i++){
+            const startDelay = setInterval(() => {
+                document.getElementById("start-container").style.display = "none";
+            }, 200);
+        }    
     localStorageLoad();
     continuousStorms();
     } else{
@@ -157,8 +168,8 @@ function stormImpact(type, level){
             clearInterval(stormInterval);
             document.body.style.backgroundColor = "rgb(135, 206, 235)";
             updateStorm();
-            multiplier = multiplier + (level * 0.1);
-            idle = idle + (level * 0.05);
+            multiplier = multiplier + (1.5 ** level);
+            idle = idle + (2.0 ** level);
             document.getElementById("storm-info").innerHTML = `Current Storm Wave: N/A`;
             document.getElementById("multiplier").innerHTML = `Clicking Multiplier: ${multiplier.toFixed(2)}x | Idle: ${idle.toFixed(2)} coins per second`;
             globalCount = 30;
@@ -183,8 +194,11 @@ function localStorageSave(){
         allPurchases: allPurchases,
         defense: defense,
         level: level,
-        storms: storms
+        storms: storms,
+        globalCount: globalCount
     }
+
+    console.log(gameState);
     localStorage.setItem("weatherIdleGameSave", JSON.stringify(gameState));
 }
 
@@ -197,6 +211,7 @@ function localStorageLoad(){
         allPurchases = savedState.allPurchases;
         defense = savedState.defense;
         level = savedState.level;
+        globalCount = savedState.globalCount;
         let storms = savedState.storms;
         document.getElementById("balance-counter-text").innerHTML = `Balance: ${Math.floor(coins)} Coins`;
         document.getElementById("defense-counter-text").innerHTML = `Defense: ${Math.floor(defense)} Units`;
