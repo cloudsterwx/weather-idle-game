@@ -1,20 +1,20 @@
-html,
-body,
-
-p {
+html, body {
+    margin: 0;
     color: black;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-body {
-    padding-bottom: 80px;
-    margin: 0;
-}
-
 #start-container {
+    background: rgba(255,255,255,0.5);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 10px;
+    margin-bottom: 20px;
     position: fixed;
     display: flex;
-    background: rgb(135, 206, 235);
     justify-content: center;
     flex-direction: column;
     align-items: center;
@@ -23,7 +23,7 @@ body {
     min-height: 100vh;
 
     opacity: 1;
-    transition: opacity 0.2s ease-in-out;
+    transition: opacity 0.4s ease-in-out;
 }
 
 #start-container.fade{
@@ -60,7 +60,6 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.5);
     margin: 10px;
     padding: 10px;
-    font-weight: bold;
     z-index: 100000
 }
 
@@ -68,17 +67,6 @@ body {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-}
-
-#start-button {
-    flex: 1;
-}
-
-#load-save-button {
-    position: relative;
-    bottom: 0;
-    flex: 1;
-    justify-content: center;
 }
 
 #layout {
@@ -111,11 +99,23 @@ body {
     margin: 3px;
 }
 
-#text-description {
-    margin: 15px;
+#shop-container {
+    background: rgba(255,255,255,0.5);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 10px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    flex: 3;
 }
 
-#description, #start-container {
+#description {
     background: rgba(255,255,255,0.5);
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -127,10 +127,6 @@ body {
     margin-bottom: 20px;
 }
 
-#shop-container {
-    flex: 3;
-}
-
 #storm-container {
     background: rgba(255,255,255,0.5);
     border-radius: 12px;
@@ -140,9 +136,6 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.3);
     padding: 20px;
     font-weight: bold;
-}
-
-#storm-container {
     max-width: fit-content;
     display: flex;
     flex-direction: column;
@@ -157,13 +150,13 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin: 15px;
 }
 
 #main-button, #start-wave {
     font-size: 18px;
     padding: 10px;
     margin: 10px;
-    font-size: 18px;
     font-weight: bold;
     background: rgba(209, 242, 255, 0.1);
     border-radius: 8px;
@@ -179,19 +172,7 @@ body {
     justify-content: space-between;
 }
 
-#defense-counter img {
-    width: 25px;
-    height: 25px;
-    margin-right: 2px;
-}
-
-#main-button img {
-    width: 25px;
-    height: 25px;
-    margin-right: 2px;
-}
-
-#balance-counter img{
+#defense-counter img, #main-button img, #balance-counter img {
     width: 25px;
     height: 25px;
     margin-right: 2px;
@@ -213,16 +194,10 @@ body {
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.5);
-    top: 0px;
-    right: 0px;
+    top: 0;
+    right: 0;
     margin: 20px;
     padding: 10px;
-    font-weight: bold;
-}
-
-#game-title {
-    font-size: 36px;
-    font-weight: bold;
 }
 
 #main-click {
@@ -237,21 +212,6 @@ body {
     font-weight: bold;
 }
 
-#shop-container {
-    background: rgba(255,255,255,0.5);
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 10px;
-    font-weight: bold;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
-}
-
 #layout2 {
     display: flex;
     justify-content: space-between;
@@ -261,9 +221,9 @@ body {
     margin-right: 15px;
     margin-left: 15px;
     margin-bottom: 15px;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 #storm-info, #multiplier, #notifications {
@@ -276,6 +236,7 @@ body {
     padding: 10px;
     font-weight: bold;
     font-size: 16px;
+    display: flex;
     justify-content: space-between;
 }
 
@@ -325,11 +286,10 @@ body {
     -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.5);
     max-width: fit-content;
-    top: 0px;
-    right: 0px;
+    top: 0;
+    right: 0;
     margin: 10px;
     padding: 10px;
-    font-weight: bold;
 }
 
 .item-info {
