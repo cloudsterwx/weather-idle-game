@@ -33,6 +33,20 @@ document.getElementById("load-save-button").addEventListener("click", function()
     }
 });
 
+document.getElementById("achievement-button").addEventListener("click", function(){
+
+    document.getElementById("achievement-container").style.display = "flex";
+    const startDelay = setTimeout(() => {
+    document.getElementById("achievement-container").classList.toggle("fade");
+    }, 100);
+
+    document.getElementById("achievement-button").classList.add("click");
+    document.getElementById("main-button").addEventListener("animationend", () => {
+        void document.getElementById("main-button").offsetWidth;
+        document.getElementById("main-button").classList.remove("click");
+    }, {once: true});
+})
+
 // idle coins + saving
 let idleInterval = setInterval(() => {
     coins = coins + idle;

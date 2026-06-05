@@ -26,11 +26,11 @@ html, body {
     transition: opacity 0.2s ease-in-out;
 }
 
-#start-container.fade{
+#start-container.fade {
     opacity: 0;
 }
 
-#start-description {
+#start-description, #achievement-layout {
     background: rgba(255,255,255,0.1);
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.01);
@@ -85,7 +85,7 @@ html, body {
     flex: 2;
 }
 
-#game-title, #start-title {
+#game-title, #start-title, #achievement-title {
     font-size: 36px;
     font-weight: bold;
     padding: 10px;
@@ -298,7 +298,6 @@ html, body {
 }
 
 .buy-button, .number-purchased {
-    position: fixed;
     font-size: 15px;
     font-weight: bold;
     background: rgba(209, 242, 255, 0.1);
@@ -339,4 +338,70 @@ html, body {
 .number-purchased {
     position: relative;
     left: 10px;
+}
+
+#column3 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#main-menu {
+    background: rgba(255,255,255,0.5);
+    border-radius: 12px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 20px;
+    font-weight: bold;
+    max-width: fit-content;
+}
+
+#achievement-button {
+    font-size: 18px;
+    padding: 10px;
+    font-weight: bold;
+    background: rgba(209, 242, 255, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    max-width: fit-content;
+}
+
+#achievement-button:hover {
+    scale: 1.05;
+    transition: 0.2ms ease-in-out;
+}
+
+#main-text {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+#achievement-container {
+    background: rgba(255,255,255, 0);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 10px;
+    margin-bottom: 20px;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    inset: 0;
+    z-index: 1000;
+    min-height: 100vh;
+    display: none;
+}
+
+#achievement-container.fade {
+    background: rgba(255,255,255,0.5);
+    transition: 0.2s ease;
 }
