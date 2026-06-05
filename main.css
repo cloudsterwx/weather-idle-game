@@ -167,6 +167,28 @@ html, body {
     max-width: fit-content;
 }
 
+#main-button:hover, #start-button:hover, #load-save-button:hover {
+    scale: 1.05;
+    transition: 113ms ease;
+}
+
+.buy-button:hover {
+    scale: 1.1;
+    transition: 113ms ease;
+}
+
+@keyframes click {
+    0% {transform: scale(1);}
+    25% {transform: scale(0.95);}
+    50% {transform: scale(0.9);}
+    75% {transform: scale(0.95);}
+    100% {transform: scale(1);}
+}
+
+.click {
+    animation: click 0.13s ease;
+}
+
 #button-group {
     display: flex;
     justify-content: space-between;

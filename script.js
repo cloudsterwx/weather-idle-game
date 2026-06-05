@@ -41,7 +41,13 @@ let idleInterval = setInterval(() => {
 }, 1000);
 
 // click = add coins
+// clicking animation: "click" keyframe list is added. when such animation ends, the class is removed & element is reset with void offsetWidth
 document.getElementById("main-button").addEventListener("click", function(){
+    document.getElementById("main-button").classList.add("click");
+    document.getElementById("main-button").addEventListener("animationend", () => {
+        void document.getElementById("main-button").offsetWidth;
+        document.getElementById("main-button").classList.remove("click");
+    }, {once: true});
     coins = coins + 1 * multiplier;
     if(coins === 1){
        document.getElementById("balance-counter-text").innerHTML = `Balance: ${Math.floor(coins)} Coin`;
@@ -78,8 +84,14 @@ function purchaseItem(name){
 }
 
 Object.keys(shopItems).forEach(item => {
-    document.getElementById(`${item.toLowerCase()}-buy`).addEventListener("click", function(){
+    const buttons = document.getElementById(`${item.toLowerCase()}-buy`)
+    buttons.addEventListener("click", function(){
         purchaseItem(item);
+        buttons.classList.add("click");
+        buttons.addEventListener("animationend", () => {
+        void buttons.offsetWidth;
+        buttons.classList.remove("click");
+    }, {once: true});
     });
 });
 
