@@ -6,25 +6,27 @@
         </head>
 
         <body style="background-color: rgb(135, 206, 235);">
+
             <div id="start-container">
                 <div id="start-description">
-            <div id="start-title"> Weather Idle Game</div>
+                <div id="start-title"> Weather Idle Game</div>
                 <div id="text-description-2">
-                        <div id="description-1-2">Welcome to the Weather Idle Game! Click the start button below to start the game. This will begin a set of storms that occur every thirty seconds.</div>
-                        <div id="description-2-2">To survive these storms, you need to use the designated "Generate Coins" button to increase your defense for the specific storm you are about to encounter.</div>
-                        <div id="description-3-2">Defeating a wave of storms will increase your multiplier (coins/click) and idle coin generation (coins/second). Each wave will also increase the next storm's strength (level), so keep upgrading your defenses. Good luck!</div>
-                    </div>
-                    </div>
-                <div id="button-container">
+                    <div id="description-1-2">Welcome to the Weather Idle Game! Click the start button below to start the game. This will begin a set of storms that occur every thirty seconds.</div>
+                    <div id="description-2-2">To survive these storms, you need to use the designated "Generate Coins" button to increase your defense for the specific storm you are about to encounter.</div>
+                    <div id="description-3-2">Defeating a wave of storms will increase your multiplier (coins/click) and idle coin generation (coins/second). Each wave will also increase the next storm's strength (level), so keep upgrading your defenses. Good luck!</div>
+                </div>
+            </div>
+            <div id="button-container">
                 <button id="start-button">Start New Game</button>
                 <button id="load-save-button">Load From Save</button>
-                </div>
-                </div>
             </div>
             </div>
-            <div id="layout">
-                <div id="column1">
-                    <div id="description">
+        </div>
+            
+        <div id="layout">
+
+            <div id="column1">
+                <div id="description">
                     <div id="game-title">Weather Idle Game</div>
                     <div id="defense-counter">
                         <img src="defenseicon.png" alt="Defense Icon"/>
@@ -38,26 +40,27 @@
                     <div id="button-group">
                         <button id="main-button">
                             <img src="coinicon.png" alt="Coin Icon"/>
-                                <span id="main-button-text">Generate Coins</span>
+                            <span id="main-button-text">Generate Coins</span>
                         </button>
                         <div id="start-wave">Wave starting in 30s...</div>
                     </div>
-                    </div>
+                </div>
 
-                    <div id="storm-container">
-                        <div id="storm-title">Incoming Storms:</div>
-                        <div id="storm1" class="storm">Storm 1</div>
-                        <div id="storm2" class="storm">Storm 2</div>
-                        <div id="storm3" class="storm">Storm 3</div>
-                    </div>
-                    </div>
-                <div id="column2">
+                <div id="storm-container">
+                    <div id="storm-title">Incoming Storms:</div>
+                    <div id="storm1" class="storm">Storm 1</div>
+                    <div id="storm2" class="storm">Storm 2</div>
+                    <div id="storm3" class="storm">Storm 3</div>
+                </div>
+            </div>
+
+            <div id="column2">
                 <div id="shop-container">
                     <div id="shop-title">Shop:</div>
-                        <div id="balance-counter">
-                            <img src="coinicon.png" alt="Coin Icon"/>
-                            <span id="balance-counter-text">Balance: 0 Coins</span>
-                        </div>
+                    <div id="balance-counter">
+                        <img src="coinicon.png" alt="Coin Icon"/>
+                        <span id="balance-counter-text">Balance: 0 Coins</span>
+                    </div>
                     <div id="items">
                         <div class="item-info" id="brick-info"> <div class="item-desc">Brick: 2 Coins (2 Defense Units)</div>
                             <div class="number-purchased" id="brick-purchased">Purchased: 0</div>
@@ -93,16 +96,15 @@
                         </div>
                     </div>
                     <div id="upgrade-container"></div>
+                    </div>
                 </div>
-
+            </div>
             <div id="layout2">
                 <div id="storm-info">Current Storm Wave: N/A</div>
                 <div id="notifications">No Notifications</div>
                 <div id="multiplier">Clicking Multiplier: x1 | Idle: 0 coins per second</div>
             </div>
-            </div>
-            </div>
-        </div>
-            <script src="script.js"></script>
-        </body>
-        </html>
+
+        <script src="script.js"></script>
+    </body>
+</html>
