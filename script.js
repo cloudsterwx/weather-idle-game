@@ -24,9 +24,9 @@ document.getElementById("load-save-button").addEventListener("click", function()
     const savedState = JSON.parse(localStorage.getItem("weatherIdleGameSave"));
     if(savedState){
     document.getElementById("start-container").classList.toggle("fade");
-            const startDelay = setTimeout(() => {
-                document.getElementById("start-container").style.display = "none";
-            }, 200);
+        const startDelay = setTimeout(() => {
+            document.getElementById("start-container").style.display = "none";
+        }, 200);
     localStorageLoad();
     continuousStorms();
     } else{
@@ -34,19 +34,80 @@ document.getElementById("load-save-button").addEventListener("click", function()
     }
 });
 
+// Achievement, stats and options menus with animations
+// add or remove past class lists to prevent bugs
 document.getElementById("achievement-button").addEventListener("click", function(){
-    const button = document.getElementById("achievement-container");
-    button.style.display = "flex";
-    button.classList.remove("remove");
-    button.classList.remove("fade");
+    const container = document.getElementById("achievement-container");
+    container.style.display = "flex";
+    container.classList.remove("remove");
+    container.classList.remove("fade");
 
     const startDelay = setTimeout(() => {
-    button.classList.add("fade");
+    container.classList.add("fade");
     }, 100);
 });
 
-document.getElementById("back-button").addEventListener("click", function(){
+document.getElementById("options-button").addEventListener("click", function(){
+    const container = document.getElementById("options-container");
+    container.style.display = "flex";
+    container.classList.remove("remove");
+    container.classList.remove("fade");
+
+    const startDelay = setTimeout(() => {
+    container.classList.add("fade");
+    }, 100);
+});
+
+document.getElementById("stats-button").addEventListener("click", function(){
+    const container = document.getElementById("stats-container");
+    container.style.display = "flex";
+    container.classList.remove("remove");
+    container.classList.remove("fade");
+
+    const startDelay = setTimeout(() => {
+    container.classList.add("fade");
+    }, 100);
+});
+
+document.getElementById("pause-button").addEventListener("click", function(){
+    const container = document.getElementById("pause-container");
+    container.style.display = "flex";
+    container.classList.remove("remove");
+    container.classList.remove("fade");
+
+    const startDelay = setTimeout(() => {
+    container.classList.add("fade");
+    }, 100);
+});
+
+// Function & animation with the achievement back button
+document.getElementById("achievement-back-button").addEventListener("click", function(){
     const container = document.getElementById("achievement-container")
+    container.classList.add("remove");
+        const startDelay = setTimeout(() => {
+            container.style.display = "none";
+        }, 200);
+});
+
+// Function & animation with the options back button
+document.getElementById("options-back-button").addEventListener("click", function(){
+    const container = document.getElementById("options-container")
+    container.classList.add("remove");
+        const startDelay = setTimeout(() => {
+            container.style.display = "none";
+        }, 200);
+});
+
+document.getElementById("stats-back-button").addEventListener("click", function(){
+    const container = document.getElementById("stats-container")
+    container.classList.add("remove");
+        const startDelay = setTimeout(() => {
+            container.style.display = "none";
+        }, 200);
+});
+
+document.getElementById("pause-back-button").addEventListener("click", function(){
+    const container = document.getElementById("pause-container")
     container.classList.add("remove");
         const startDelay = setTimeout(() => {
             container.style.display = "none";
@@ -232,10 +293,6 @@ function localStorageSave(){
     localStorage.setItem("weatherIdleGameSave", JSON.stringify(gameState));
 }
 
-function updatePrices(){
-    
-}
-
 function localStorageLoad(){
     const savedState = JSON.parse(localStorage.getItem("weatherIdleGameSave"));
     if(savedState){
@@ -261,4 +318,8 @@ function localStorageLoad(){
             document.getElementById(`${item.toLowerCase()}-purchased`).innerHTML = `Purchased: ${findTotalPurchases(item)}`;
         });
     }
+}
+
+function updatePrices(){
+    
 }

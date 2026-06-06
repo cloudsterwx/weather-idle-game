@@ -30,7 +30,7 @@ html, body {
     opacity: 0;
 }
 
-#start-description, #achievement-layout {
+#start-description, #achievement-layout, #options-layout, #stats-layout, #pause-layout {
     background: rgba(255,255,255,0.1);
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.01);
@@ -143,7 +143,12 @@ html, body {
 }
 
 #storm-title {
-    font-size: 24px;
+    font-size: 28px;
+}
+
+#storm1, #storm2, #storm3 {
+    margin-top: 1px;
+    font-size: 19px;
 }
 
 #text-description {
@@ -358,6 +363,12 @@ html, body {
     max-width: fit-content;
 }
 
+#buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 #achievement-button {
     font-size: 18px;
     padding: 10px;
@@ -368,10 +379,62 @@ html, body {
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.5);
-    max-width: fit-content;
+}
+
+#stats-button {
+    font-size: 18px;
+    padding: 10px;
+    font-weight: bold;
+    background: rgba(209, 242, 255, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    margin-left: 5px;
+}
+
+#stats-button:hover {
+    scale: 1.05;
+    transition: 0.2ms ease-in-out
+}
+
+#options-button {
+    font-size: 18px;
+    padding: 10px;
+    font-weight: bold;
+    background: rgba(209, 242, 255, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+#pause-button {
+    font-size: 18px;
+    padding: 10px;
+    font-weight: bold;
+    background: rgba(209, 242, 255, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    margin-left: 5px;
+}
+
+#pause-button:hover {
+    scale: 1.05;
+    transition: 0.2ms ease-in-out
 }
 
 #achievement-button:hover {
+    scale: 1.05;
+    transition: 0.2ms ease-in-out;
+}
+
+#options-button:hover {
     scale: 1.05;
     transition: 0.2ms ease-in-out;
 }
@@ -381,7 +444,7 @@ html, body {
     margin-bottom: 10px;
 }
 
-#achievement-container {
+.layout-container {
     background: rgba(255,255,255, 0);
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -391,7 +454,6 @@ html, body {
     padding: 10px;
     margin-bottom: 20px;
     position: fixed;
-    display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
@@ -401,17 +463,17 @@ html, body {
     display: none;
 }
 
-#achievement-container.fade {
+.layout-container.fade {
     background: rgba(255,255,255,0.5);
     transition: 0.2s ease;
 }
 
-#achievement-container.remove {
+.layout-container.remove {
     background: rgba(255,255,255,0);
     transition: 0.2s ease;
 }
 
-#back-button {
+#achievement-back-button {
     font-size: 24px;
     font-weight: bold;
     background: rgba(209, 242, 255, 0.1);
@@ -421,4 +483,60 @@ html, body {
     -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.5);
     padding: 10px;
+}
+
+#achievement-back-button:hover {
+    scale: 1.05;
+    transition: 0.2ms ease-in-out
+}
+
+#options-back-button {
+    font-size: 24px;
+    font-weight: bold;
+    background: rgba(209, 242, 255, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 10px;
+}
+
+#options-back-button:hover {
+    scale: 1.05;
+    transition: 0.2ms ease-in-out
+}
+
+#stats-back-button {
+    font-size: 24px;
+    font-weight: bold;
+    background: rgba(209, 242, 255, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 10px;
+}
+
+#stats-back-button:hover {
+    scale: 1.05;
+    transition: 0.2ms ease-in-out;
+}
+
+#pause-back-button {
+    font-size: 24px;
+    font-weight: bold;
+    background: rgba(209, 242, 255, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 10px;
+}
+
+#pause-back-button:hover {
+    scale: 1.05;
+    transition: 0.2ms ease-in-out;
 }
