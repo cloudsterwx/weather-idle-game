@@ -405,3 +405,20 @@ html, body {
     background: rgba(255,255,255,0.5);
     transition: 0.2s ease;
 }
+
+#achievement-container.remove {
+    background: rgba(255,255,255,0);
+    transition: 0.2s ease;
+}
+
+#back-button {
+    font-size: 24px;
+    font-weight: bold;
+    background: rgba(209, 242, 255, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 10px;
+}

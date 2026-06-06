@@ -11,9 +11,10 @@ let intensity = [1,1.2,1.4];
 let round = 1;
 
 document.getElementById("start-button").addEventListener("click", function(){
-    document.getElementById("start-container").classList.toggle("fade");
+    const container = document.getElementById("start-container")
+    container.classList.toggle("fade");
         const startDelay = setTimeout(() => {
-            document.getElementById("start-container").style.display = "none";
+            container.style.display = "none";
         }, 200);
     generateStorm();
     continuousStorms();
@@ -34,18 +35,23 @@ document.getElementById("load-save-button").addEventListener("click", function()
 });
 
 document.getElementById("achievement-button").addEventListener("click", function(){
+    const button = document.getElementById("achievement-container");
+    button.style.display = "flex";
+    button.classList.remove("remove");
+    button.classList.remove("fade");
 
-    document.getElementById("achievement-container").style.display = "flex";
     const startDelay = setTimeout(() => {
-    document.getElementById("achievement-container").classList.toggle("fade");
+    button.classList.add("fade");
     }, 100);
+});
 
-    document.getElementById("achievement-button").classList.add("click");
-    document.getElementById("main-button").addEventListener("animationend", () => {
-        void document.getElementById("main-button").offsetWidth;
-        document.getElementById("main-button").classList.remove("click");
-    }, {once: true});
-})
+document.getElementById("back-button").addEventListener("click", function(){
+    const container = document.getElementById("achievement-container")
+    container.classList.add("remove");
+        const startDelay = setTimeout(() => {
+            container.style.display = "none";
+        }, 200);
+});
 
 // idle coins + saving
 let idleInterval = setInterval(() => {
@@ -57,10 +63,11 @@ let idleInterval = setInterval(() => {
 // click = add coins
 // clicking animation: "click" keyframe list is added. when such animation ends, the class is removed & element is reset with void offsetWidth
 document.getElementById("main-button").addEventListener("click", function(){
-    document.getElementById("main-button").classList.add("click");
-    document.getElementById("main-button").addEventListener("animationend", () => {
-        void document.getElementById("main-button").offsetWidth;
-        document.getElementById("main-button").classList.remove("click");
+    const button = document.getElementById("main-button")
+    button.classList.add("click");
+    button.addEventListener("animationend", () => {
+        void button.offsetWidth;
+        button.classList.remove("click");
     }, {once: true});
     coins = coins + 1 * multiplier;
     if(coins === 1){
