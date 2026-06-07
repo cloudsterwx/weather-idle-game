@@ -1,14 +1,14 @@
 let stormArray = ["Thunderstorm", "Hurricane", "Tornado", "Blizzard", "Flood"];
 let stormLevels = ["", "Level 1", "Level 2", "Level 3", "Level 4", "Level 5"];
-let allPurchases = [];
 
 let globalCount = 30;
 let coins = 0;
 let multiplier = 1;
 let defense = 0;
 let idle = 0;
-let intensity = [1,1.2,1.4];
+let intensity = [1,11,21];
 let round = 1;
+let pause;
 
 document.getElementById("start-button").addEventListener("click", function(){
     const container = document.getElementById("start-container")
@@ -45,6 +45,8 @@ document.getElementById("achievement-button").addEventListener("click", function
     const startDelay = setTimeout(() => {
     container.classList.add("fade");
     }, 100);
+
+    pauseGame();
 });
 
 document.getElementById("options-button").addEventListener("click", function(){
@@ -56,6 +58,8 @@ document.getElementById("options-button").addEventListener("click", function(){
     const startDelay = setTimeout(() => {
     container.classList.add("fade");
     }, 100);
+
+    pauseGame();
 });
 
 document.getElementById("stats-button").addEventListener("click", function(){
@@ -67,6 +71,8 @@ document.getElementById("stats-button").addEventListener("click", function(){
     const startDelay = setTimeout(() => {
     container.classList.add("fade");
     }, 100);
+
+    pauseGame();
 });
 
 document.getElementById("pause-button").addEventListener("click", function(){
@@ -74,10 +80,11 @@ document.getElementById("pause-button").addEventListener("click", function(){
     container.style.display = "flex";
     container.classList.remove("remove");
     container.classList.remove("fade");
-
     const startDelay = setTimeout(() => {
     container.classList.add("fade");
     }, 100);
+
+    pauseGame();
 });
 
 // Function & animation with the achievement back button
@@ -87,6 +94,7 @@ document.getElementById("achievement-back-button").addEventListener("click", fun
         const startDelay = setTimeout(() => {
             container.style.display = "none";
         }, 200);
+        clearInterval(pause);
 });
 
 // Function & animation with the options back button
@@ -96,6 +104,7 @@ document.getElementById("options-back-button").addEventListener("click", functio
         const startDelay = setTimeout(() => {
             container.style.display = "none";
         }, 200);
+        clearInterval(pause);
 });
 
 document.getElementById("stats-back-button").addEventListener("click", function(){
@@ -104,15 +113,17 @@ document.getElementById("stats-back-button").addEventListener("click", function(
         const startDelay = setTimeout(() => {
             container.style.display = "none";
         }, 200);
+        clearInterval(pause);
 });
 
 document.getElementById("pause-back-button").addEventListener("click", function(){
-    const container = document.getElementById("pause-container")
-    container.classList.add("remove");
-        const startDelay = setTimeout(() => {
-            container.style.display = "none";
-        }, 200);
-});
+        const container = document.getElementById("pause-container")
+        container.classList.add("remove");
+            const startDelay = setTimeout(() => {
+                container.style.display = "none";
+            }, 200);
+        clearInterval(pause);
+    });
 
 // idle coins + saving
 let idleInterval = setInterval(() => {
@@ -131,7 +142,7 @@ document.getElementById("main-button").addEventListener("click", function(){
         button.classList.remove("click");
     }, {once: true});
     coins = coins + 1 * multiplier;
-    if(coins === 1){
+    if(Math.floor(coins) === 1){
        document.getElementById("balance-counter-text").innerHTML = `Balance: ${Math.floor(coins)} Coin`;
     }
     else{
@@ -151,14 +162,26 @@ const shopItems = {
     "Dam": {cost: 1000000, defense: 1100000}
 }
 
+// for tracking of number of purchases to exponentially increase costs
+let numberBought = {
+    "Brick": 0,
+    "Sandbag": 0,
+    "Barricade": 0,
+    "Wall": 0,
+    "Floodgate": 0,
+    "Levee": 0,
+    "Hospital": 0,
+    "Dam": 0,
+}
+
 function purchaseItem(name){
     let item = shopItems[name];
-    if(coins >= item.cost){
-        coins = coins - item.cost
+    if(coins >= getCost(name)){
+        coins = coins - getCost(name);
         defense = defense + item.defense;
         document.getElementById("defense-counter-text").innerHTML = `Defense: ${Math.floor(defense)} Units`;
         document.getElementById("balance-counter-text").innerHTML = `Balance: ${Math.floor(coins)} Coins`;
-        allPurchases.push(name);
+        numberBought[name]++;
     } else {
         alert("Not enough coins to purchase this item!");
     }
@@ -174,8 +197,16 @@ Object.keys(shopItems).forEach(item => {
         void buttons.offsetWidth;
         buttons.classList.remove("click");
     }, {once: true});
+    updatePrices(item);
     });
 });
+
+function pauseGame(){
+    let currentCount = globalCount;
+    pause = setInterval(() => {
+        globalCount = currentCount;
+    }, 1000);
+}
 
 // starts a storm every 30 seconds to increase game difficulty
 function continuousStorms(){
@@ -188,7 +219,7 @@ function continuousStorms(){
             let stormType = document.getElementById("storm1").innerHTML.split(" - ")[0];
             stormImpact(stormType, intensity);
             round++;
-            intensity = intensity.map(intensity => intensity + 0.2);
+            intensity = intensity.map(intensity => intensity + 4);
             clearInterval(cooldown);
         }
     }, 1000)
@@ -196,7 +227,7 @@ function continuousStorms(){
 
 // avoid repeated storms, run every time the game starts or the level changes
 function generateStorm(){
-    let updatingStormArray = stormArray;
+    let updatingStormArray = [...stormArray];
     let randomStorm = Math.floor(Math.random() * updatingStormArray.length);
     document.getElementById("storm1").innerHTML = `${updatingStormArray[randomStorm]} - Intensity ${intensity[0].toFixed(1)}`;
     updatingStormArray = updatingStormArray.filter(storm => storm !== stormArray[randomStorm]);
@@ -218,7 +249,7 @@ function updateStorm(){
 }
 
 function findTotalPurchases(type){
-    const count = allPurchases.filter(purchase => purchase === type).length;
+    const count = numberBought[type]
     document.getElementById(`${type.toLowerCase()}-purchased`).innerHTML = `Purchased: ${count}`;
     return count;
 }
@@ -259,8 +290,8 @@ function stormImpact(type, intensity){
             clearInterval(stormInterval);
             document.body.style.backgroundColor = "rgb(135, 206, 235)";
             updateStorm();
-            multiplier = multiplier + (1.5 ** intensity[0]);
-            idle = idle + (2.0 ** intensity[0]);
+            multiplier = multiplier + (1.5 * round);
+            idle = idle + (2.0 * round);
             document.getElementById("storm-info").innerHTML = `Current Storm Wave: N/A`;
             document.getElementById("multiplier").innerHTML = `Clicking Multiplier: ${multiplier.toFixed(2)}x | Idle: ${idle.toFixed(2)} coins per second`;
             globalCount = 30;
@@ -269,20 +300,33 @@ function stormImpact(type, intensity){
     }, 250);
 }
 
+function getCost(item){
+    let totalPurchases = findTotalPurchases(item);
+    return shopItems[item].cost * Math.pow(1.15, totalPurchases);
+}
+
+function updatePrices(item){
+    let totalPurchases = findTotalPurchases(item);
+    const itemCost = getCost(item);
+    if(totalPurchases > 0){
+    document.getElementById(`${item.toLowerCase()}-desc`).innerHTML = `${item}: ${itemCost.toFixed(2)} Coins (${shopItems[item].defense} Defense Units)`
+    }
+}
+
 function localStorageSave(){
     const storm1 = document.getElementById("storm1").innerHTML.split(" - ")[0];
     const storm2 = document.getElementById("storm2").innerHTML.split(" - ")[0];
     const storm3 = document.getElementById("storm3").innerHTML.split(" - ")[0];
     let storms = [storm1,storm2,storm3];
     if(storm1 === "Storm 1") {
-        return("a");
+        return;
     }
 
     const gameState = {
         coins: coins,
         multiplier: multiplier,
         idle: idle,
-        allPurchases: allPurchases,
+        numberBought: numberBought,
         defense: defense,
         intensity: intensity,
         storms: storms,
@@ -299,7 +343,7 @@ function localStorageLoad(){
         coins = savedState.coins;
         multiplier = savedState.multiplier;
         idle = savedState.idle;
-        allPurchases = savedState.allPurchases;
+        numberBought = savedState.numberBought;
         defense = savedState.defense;
         intensity = savedState.intensity;
         globalCount = savedState.globalCount;
@@ -316,10 +360,7 @@ function localStorageLoad(){
 
         Object.keys(shopItems).forEach(item => {
             document.getElementById(`${item.toLowerCase()}-purchased`).innerHTML = `Purchased: ${findTotalPurchases(item)}`;
+            updatePrices(item);
         });
     }
-}
-
-function updatePrices(){
-    
 }
