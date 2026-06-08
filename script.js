@@ -6,9 +6,11 @@ let coins = 0;
 let multiplier = 1;
 let defense = 0;
 let idle = 0;
-let intensity = [1,11,21];
+let intensity = [1,2,3];
 let round = 1;
 let pause;
+let totalClicks = 0;
+let totalDefenseUsed = 0;
 
 document.getElementById("start-button").addEventListener("click", function(){
     const container = document.getElementById("start-container")
@@ -148,6 +150,10 @@ document.getElementById("main-button").addEventListener("click", function(){
     else{
         document.getElementById("balance-counter-text").innerHTML = `Balance: ${Math.floor(coins)} Coins`;
     }
+    totalClicks++;
+    newNotification("1 Coin Added To Balance");
+
+    updateStats();
 });
 
 // object list for shop
@@ -219,7 +225,7 @@ function continuousStorms(){
             let stormType = document.getElementById("storm1").innerHTML.split(" - ")[0];
             stormImpact(stormType, intensity);
             round++;
-            intensity = intensity.map(intensity => intensity + 4);
+            intensity = intensity.map(intensity => intensity + 1);
             clearInterval(cooldown);
         }
     }, 1000)
@@ -256,7 +262,8 @@ function findTotalPurchases(type){
 
 // calculates stuff based on the storm
 function stormImpact(type, intensity){
-    let defenseSubtract = intensity[0] * 10
+    const initialDefense = defense;
+    let defenseSubtract = intensity[0] * 50
     document.getElementById("storm-info").innerHTML = `Current Storm Wave: ${type} - Intensity ${intensity[0].toFixed(1)}`;
     if(type === "Tornado"){
         document.body.style.backgroundColor = "rgb(112, 112, 112)";
@@ -288,6 +295,7 @@ function stormImpact(type, intensity){
         count++;
         if(count >= 10){
             clearInterval(stormInterval);
+            const newDefense = defense;
             document.body.style.backgroundColor = "rgb(135, 206, 235)";
             updateStorm();
             multiplier = multiplier + (1.5 * round);
@@ -296,9 +304,17 @@ function stormImpact(type, intensity){
             document.getElementById("multiplier").innerHTML = `Clicking Multiplier: ${multiplier.toFixed(2)}x | Idle: ${idle.toFixed(2)} coins per second`;
             globalCount = 30;
             continuousStorms();
+            const defenseUsed = initialDefense - newDefense;
+            totalDefenseUsed = Math.floor(totalDefenseUsed + defenseUsed);
+            updateStats();
         }
     }, 250);
 }
+
+function updateStats(){
+    document.getElementById("click-stats").innerHTML = `Total Clicks: ${totalClicks}`;
+    document.getElementById("defense-stats").innerHTML = `Total Defense Used: ${totalDefenseUsed} Units`
+};
 
 function getCost(item){
     let totalPurchases = findTotalPurchases(item);
@@ -311,6 +327,18 @@ function updatePrices(item){
     if(totalPurchases > 0){
     document.getElementById(`${item.toLowerCase()}-desc`).innerHTML = `${item}: ${itemCost.toFixed(2)} Coins (${shopItems[item].defense} Defense Units)`
     }
+}
+
+function newNotification(message){
+    let notification = document.getElementById("notifications");
+    notification.innerHTML = `${message}`;
+    notification.classList.add("show-notification");
+        void notification.offsetWidth; 
+
+        setTimeout(() => {
+            void notification.offsetWidth;
+            notification.classList.remove("show-notification");
+        }, 5000);
 }
 
 function localStorageSave(){
@@ -330,7 +358,8 @@ function localStorageSave(){
         defense: defense,
         intensity: intensity,
         storms: storms,
-        globalCount: globalCount
+        globalCount: globalCount,
+        totalDefenseUsed: totalDefenseUsed
     }
 
     console.log(gameState);
@@ -347,6 +376,7 @@ function localStorageLoad(){
         defense = savedState.defense;
         intensity = savedState.intensity;
         globalCount = savedState.globalCount;
+        totalDefenseUsed = savedState.totalDefenseUsed;
         let storms = savedState.storms;
         document.getElementById("balance-counter-text").innerHTML = `Balance: ${Math.floor(coins)} Coins`;
         document.getElementById("defense-counter-text").innerHTML = `Defense: ${Math.floor(defense)} Units`;
@@ -357,7 +387,6 @@ function localStorageLoad(){
         if(storms.length === 0){
         generateStorm();
         }
-
         Object.keys(shopItems).forEach(item => {
             document.getElementById(`${item.toLowerCase()}-purchased`).innerHTML = `Purchased: ${findTotalPurchases(item)}`;
             updatePrices(item);

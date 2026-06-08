@@ -85,7 +85,7 @@ html, body {
     flex: 2;
 }
 
-#game-title, #start-title, #achievement-title {
+#game-title, #start-title, #achievement-title, #stats-title, #options-title, #pause-title {
     font-size: 36px;
     font-weight: bold;
     padding: 10px;
@@ -275,15 +275,28 @@ html, body {
 
 #multiplier {
     max-width: fit-content;
-    order: 2;
+    order: 3;
     flex: 1;
 }
 
 #notifications {
+    position: fixed;
+    left: 45%;
+    bottom: -80px;
     max-width: fit-content;
     padding: 12px;
-    order: 3;
-    flex: 1;
+}
+
+@keyframes show-notification {
+    0% {transform: translateY(-10px);}
+    5% {transform: translateY(-95px);}
+    30% {transform: translateY(-1px);}
+    95% {transform: translateY(1px);}
+    100% {transform: translateY(110px);}
+}
+
+.show-notification {
+    animation: show-notification 30s ease;
 }
 
 #start-wave {
@@ -539,4 +552,8 @@ html, body {
 #pause-back-button:hover {
     scale: 1.05;
     transition: 0.2ms ease-in-out;
+}
+
+.stats-layout-text {
+    margin: 15px;
 }
