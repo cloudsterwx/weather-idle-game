@@ -19,7 +19,7 @@ document.getElementById("start-button").addEventListener("click", function(){
             container.style.display = "none";
         }, 200);
     
-        newNotification("Welcome!");
+        showNotification("Welcome!");
     generateStorm();
     continuousStorms();
 });
@@ -91,7 +91,7 @@ document.getElementById("pause-button").addEventListener("click", function(){
     pauseGame();
 });
 
-// Function & animation with the achievement back button
+// Function & animation with the main menu back buttons
 document.getElementById("achievement-back-button").addEventListener("click", function(){
     const container = document.getElementById("achievement-container")
     container.classList.add("remove");
@@ -101,7 +101,6 @@ document.getElementById("achievement-back-button").addEventListener("click", fun
         clearInterval(pause);
 });
 
-// Function & animation with the options back button
 document.getElementById("options-back-button").addEventListener("click", function(){
     const container = document.getElementById("options-container")
     container.classList.add("remove");
@@ -153,8 +152,6 @@ document.getElementById("main-button").addEventListener("click", function(){
         document.getElementById("balance-counter-text").innerHTML = `Balance: ${Math.floor(coins)} Coins`;
     }
     totalClicks++;
-    newNotification("1 Coin Added To Balance");
-
     updateStats();
 });
 
@@ -190,6 +187,7 @@ function purchaseItem(name){
         document.getElementById("defense-counter-text").innerHTML = `Defense: ${Math.floor(defense)} Units`;
         document.getElementById("balance-counter-text").innerHTML = `Balance: ${Math.floor(coins)} Coins`;
         numberBought[name]++;
+        showNotification(`Purchased one ${name}!`);
     } else {
         alert("Not enough coins to purchase this item!");
     }
@@ -200,7 +198,6 @@ Object.keys(shopItems).forEach(item => {
     const buttons = document.getElementById(`${item.toLowerCase()}-buy`)
     buttons.addEventListener("click", function(){
         purchaseItem(item);
-        newNotification(`Purchased one ${item}!`)
         buttons.classList.add("click");
         buttons.addEventListener("animationend", () => {
         void buttons.offsetWidth;
@@ -270,16 +267,13 @@ function stormImpact(type, intensity){
     document.getElementById("storm-info").innerHTML = `Current Storm Wave: ${type} - Intensity ${intensity[0].toFixed(1)}`;
     if(type === "Tornado"){
         document.body.style.backgroundColor = "rgb(112, 112, 112)";
-        defenseSubtract = defenseSubtract * 1.5;
+        tornadoAnimation();
     } else if (type === "Hurricane"){
         document.body.style.backgroundColor = "rgb(0, 106, 255)";
-        defenseSubtract = defenseSubtract * 1.25;
     } else if (type === "Blizzard"){
         document.body.style.backgroundColor = "rgb(227, 227, 227)";
-        defenseSubtract = defenseSubtract * 1.1;
     } else if (type === "Flood"){
         document.body.style.backgroundColor = "rgba(255,0,0,0.5)";
-        defenseSubtract = defenseSubtract * 1.05;
     } else if (type === "Thunderstorm"){
         document.body.style.backgroundColor = "rgb(67, 67, 67)";
     }
@@ -332,15 +326,24 @@ function updatePrices(item){
     }
 }
 
-function newNotification(message){
+function showNotification(message){
     let notification = document.getElementById("notifications");
+    notification.classList.remove("show-notification");
+    void notification.offsetWidth;
     notification.innerHTML = `${message}`;
     notification.classList.add("show-notification");
+}
 
-        setTimeout(() => {
-            void notification.offsetWidth;
-            notification.classList.remove("show-notification");
-        }, 2000);
+function tornadoAnimation(){
+    let tornado = document.getElementById("tornado-effect");
+    tornado.classList.remove("tornado");
+    void tornado.offsetWidth;
+    tornado.style.display = "flex";
+    tornado.classList.add("tornado");
+
+    tornado.addEventListener("animationend", () => {
+        tornado.style.display = "none";
+    }, {once: true});
 }
 
 function localStorageSave(){

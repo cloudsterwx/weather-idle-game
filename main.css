@@ -23,10 +23,10 @@ html, body {
     min-height: 100vh;
 
     opacity: 1;
-    transition: opacity 0.2s ease-in-out;
 }
 
 #start-container.fade {
+    transition: opacity 0.2s ease-in-out;
     opacity: 0;
 }
 
@@ -280,8 +280,19 @@ html, body {
 }
 
 #notifications {
+    background: rgba(255,255,255,0.5);
+    border-radius: 12px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 10px;
+    font-weight: bold;
+    font-size: 20px;
     position: fixed;
-    left: 45%;
+    left: 0;
+    right: 0;
+    margin: auto;
     bottom: -80px;
     max-width: fit-content;
     padding: 12px;
@@ -289,14 +300,17 @@ html, body {
 
 @keyframes show-notification {
     0% {transform: translateY(-10px);}
-    5% {transform: translateY(-95px);}
-    30% {transform: translateY(-1px);}
-    95% {transform: translateY(1px);}
-    100% {transform: translateY(110px);}
+    5% {transform: translateY(-90px);}
+    95% {transform: translateY(-90px);}
+    100% {transform: translateY(0px);}
 }
 
 .show-notification {
-    animation: show-notification 15s ease;
+    animation: show-notification 15s;
+}
+
+.hide-notificaton {
+    animation: hide-notification 15s;
 }
 
 #start-wave {
@@ -556,4 +570,43 @@ html, body {
 
 .stats-layout-text {
     margin: 15px;
+}
+
+#tornado-effect {
+    background: rgb(128, 128, 128);
+    border-radius: 0px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 10px;
+    margin-bottom: 20px;
+    position: fixed;
+    display: flex;
+    left: 0;
+    right: 0;
+    margin: auto;
+    inset: 0;
+    z-index: 1000;
+    max-width: 200px;
+    max-height: 200px;
+    display: none;
+}
+
+@keyframes tornado {
+    0% {scale: 1;
+    border-radius: 0%;}
+    25% {scale: 1.5;
+    border-radius: 10%;}
+    50% {scale: 3;
+    border-radius: 20%;}
+    75% {scale: 5;
+    border-radius: 35%;}
+    100% {scale: 15;
+    border-radius: 50%;
+    transform: rotate(5000deg);}
+}
+
+.tornado {
+    animation: tornado 3s ease-in;
 }
