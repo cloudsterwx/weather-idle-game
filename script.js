@@ -18,6 +18,8 @@ document.getElementById("start-button").addEventListener("click", function(){
         const startDelay = setTimeout(() => {
             container.style.display = "none";
         }, 200);
+    
+        newNotification("Welcome!");
     generateStorm();
     continuousStorms();
 });
@@ -198,6 +200,7 @@ Object.keys(shopItems).forEach(item => {
     const buttons = document.getElementById(`${item.toLowerCase()}-buy`)
     buttons.addEventListener("click", function(){
         purchaseItem(item);
+        newNotification(`Purchased one ${item}!`)
         buttons.classList.add("click");
         buttons.addEventListener("animationend", () => {
         void buttons.offsetWidth;
@@ -333,12 +336,11 @@ function newNotification(message){
     let notification = document.getElementById("notifications");
     notification.innerHTML = `${message}`;
     notification.classList.add("show-notification");
-        void notification.offsetWidth; 
 
         setTimeout(() => {
             void notification.offsetWidth;
             notification.classList.remove("show-notification");
-        }, 5000);
+        }, 2000);
 }
 
 function localStorageSave(){

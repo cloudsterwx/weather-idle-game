@@ -296,7 +296,7 @@ html, body {
 }
 
 .show-notification {
-    animation: show-notification 30s ease;
+    animation: show-notification 15s ease;
 }
 
 #start-wave {
