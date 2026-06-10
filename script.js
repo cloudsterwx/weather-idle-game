@@ -12,6 +12,7 @@ let pause;
 let totalClicks = 0;
 let totalDefenseUsed = 0;
 
+
 document.getElementById("start-button").addEventListener("click", function(){
     const container = document.getElementById("start-container")
     container.classList.toggle("fade");
@@ -266,14 +267,15 @@ function stormImpact(type, intensity){
     let defenseSubtract = intensity[0] * 50
     document.getElementById("storm-info").innerHTML = `Current Storm Wave: ${type} - Intensity ${intensity[0].toFixed(1)}`;
     if(type === "Tornado"){
-        document.body.style.backgroundColor = "rgb(112, 112, 112)";
         tornadoAnimation();
+        document.body.style.backgroundColor = "rgb(112, 112, 112)";
     } else if (type === "Hurricane"){
         document.body.style.backgroundColor = "rgb(0, 106, 255)";
     } else if (type === "Blizzard"){
         document.body.style.backgroundColor = "rgb(227, 227, 227)";
     } else if (type === "Flood"){
-        document.body.style.backgroundColor = "rgba(255,0,0,0.5)";
+        document.body.style.backgroundColor = "rgb(105, 180, 255)";
+        floodAnimation();
     } else if (type === "Thunderstorm"){
         document.body.style.backgroundColor = "rgb(67, 67, 67)";
     }
@@ -343,6 +345,18 @@ function tornadoAnimation(){
 
     tornado.addEventListener("animationend", () => {
         tornado.style.display = "none";
+    }, {once: true});
+}
+
+function floodAnimation(){
+    let flood = document.getElementById("flood-effect");
+    flood.classList.remove("flood");
+    void flood.offsetWidth;
+    flood.style.display = "flex";
+    flood.classList.add("flood");
+
+    flood.addEventListener("animationend", () => {
+        flood.style.display = "none";
     }, {once: true});
 }
 
