@@ -243,8 +243,10 @@ Object.keys(shopItems).forEach(item => {
 
 function pauseGame(){
     let currentCount = globalCount;
+    let currentCoins = coins;
     pause = setInterval(() => {
         globalCount = currentCount;
+        coins = currentCoins;
     }, 1000);
 }
 
@@ -391,6 +393,12 @@ function floodAnimation(){
     flood.addEventListener("animationend", () => {
         flood.style.display = "none";
     }, {once: true});
+}
+
+function difficultyNumber(difficulty){
+    if(difficulty === "easy"){
+
+    }
 }
 
 function localStorageSave(){
