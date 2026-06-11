@@ -162,6 +162,10 @@ document.getElementById("pause-back-button").addEventListener("click", function(
         clearInterval(pause);
     });
 
+document.getElementById("continue-button").addEventListener("click", function(){
+    window.location.reload();
+});
+
 // idle coins + saving
 let idleInterval = setInterval(() => {
     coins = coins + idle;
@@ -241,6 +245,7 @@ Object.keys(shopItems).forEach(item => {
     });
 });
 
+// takes current global count/coins and resets every 1s
 function pauseGame(){
     let currentCount = globalCount;
     let currentCoins = coins;
@@ -318,12 +323,11 @@ function stormImpact(type, intensity){
     let stormInterval = setInterval(() => {
         defense = defense - defenseSubtract / 10;
         document.getElementById("defense-counter-text").innerHTML = `Defense: ${Math.floor(defense)} Units`;
-        if(defense <= 0){
+        if(defense < 0){
             clearInterval(stormInterval);
             document.body.style.backgroundColor = "rgb(81, 0, 0)";
             setTimeout(() => {
-                alert("Game Over! Your defense has been breached by the storm.");
-                window.location.reload();
+                document.getElementById("game-over-screen").style.display = "flex";
             }, 1000);
         }
         count++;
@@ -336,7 +340,15 @@ function stormImpact(type, intensity){
             idle = idle + (2.0 * round);
             document.getElementById("storm-info").innerHTML = `Current Storm Wave: N/A`;
             document.getElementById("multiplier").innerHTML = `Clicking Multiplier: ${multiplier.toFixed(2)}x | Idle: ${idle.toFixed(2)} coins per second`;
-            globalCount = 30;
+            if(difficulty === "easy"){
+                globalCount = 30;
+            } else if(difficulty === "medium"){
+                globalCount = 25;
+            } else if(difficulty === "hard"){
+                globalCount = 20;
+            } else{
+                globalCount = 15;
+            }
             continuousStorms();
             const defenseUsed = initialDefense - newDefense;
             totalDefenseUsed = Math.floor(totalDefenseUsed + defenseUsed);

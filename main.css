@@ -30,7 +30,7 @@ html, body {
     opacity: 0;
 }
 
-#start-description, #achievement-layout, #options-layout, #stats-layout, #pause-layout {
+#start-description, #achievement-layout, #options-layout, #stats-layout, #pause-layout, #game-over-container {
     background: rgba(255,255,255,0.1);
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.01);
@@ -49,7 +49,7 @@ html, body {
     max-width: 800px;
 }
 
-#start-button, #load-save-button {
+#start-button, #load-save-button, #continue-button {
     font-size: 24px;
     font-weight: bold;
     background: rgba(209, 242, 255, 0.1);
@@ -85,7 +85,7 @@ html, body {
     flex: 2;
 }
 
-#game-title, #start-title, #achievement-title, #stats-title, #options-title, #pause-title {
+.title {
     font-size: 36px;
     font-weight: bold;
     padding: 10px;
@@ -151,7 +151,7 @@ html, body {
     font-size: 19px;
 }
 
-#text-description {
+#text-description, #game-over-description {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -172,7 +172,7 @@ html, body {
     max-width: fit-content;
 }
 
-#main-button:hover, #start-button:hover, #load-save-button:hover {
+#main-button:hover, #start-button:hover, #load-save-button:hover, #continue-button:hover {
     scale: 1.05;
     transition: 113ms ease;
 }
@@ -681,3 +681,23 @@ html, body {
     scale: 1.05;
     transition: 113ms ease;
 }
+
+#game-over-screen {
+    background: rgba(255,255,255,0.5);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 10px;
+    margin-bottom: 20px;
+    position: fixed;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    inset: 0;
+    z-index: 1000;
+    min-height: 100vh;
+    display: none;
+}
+

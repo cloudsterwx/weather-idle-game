@@ -10,9 +10,17 @@
             <div id="tornado-effect"></div>
             <div id="flood-effect"></div>
 
+            <div id="game-over-screen">
+                <div id="game-over-container">
+                    <div class="title" id="game-over-title">Game Over</div>
+                    <div id="game-over-description">To start a new game, press Continue.</div>
+                </div>
+                <button id="continue-button">Continue</button>
+            </div>
+
             <div id="start-container">
                 <div id="start-description">
-                <div id="start-title"> Weather Idle Game</div>
+                <div class="title" id="start-title"> Weather Idle Game</div>
                 <div id="text-description-2">
                     <div id="description-1-2">Welcome to the Weather Idle Game! Click the start button below to start the game. This will begin a set of storms that occur every thirty seconds.</div>
                     <div id="description-2-2">To survive these storms, you need to use the designated "Generate Coins" button to increase your defense for the specific storm you are about to encounter.</div>
@@ -24,11 +32,10 @@
                 <button id="load-save-button">Load From Save</button>
             </div>
             </div>
-        </div>
 
         <div class="layout-container" id="achievement-container">
             <div id="achievement-layout">
-                <div id="achievement-title">Achievements</div>
+                <div class="title" id="achievement-title">Achievements</div>
                 <div class="achievement-info" id="ten-waves">Survived 10 Waves</div>
                 <div class="achievement-info" id="fifty-waves">Survived 50 Waves</div>
                 <div class="achievement-info" id="one-hundred-waves">Survived 100 Waves</div>
@@ -38,7 +45,7 @@
 
         <div class="layout-container" id="stats-container">
             <div id="stats-layout">
-                <div id="stats-title">Stats</div>
+                <div class="title" id="stats-title">Stats</div>
                 <div class="stats-layout-text" id="click-stats">Clicked:</div>
                 <div class="stats-layout-text" id="defense-stats">Defense Used:</div>
             </div>
@@ -47,7 +54,7 @@
 
         <div class="layout-container" id="options-container">
             <div id="options-layout">
-                <div id="options-title">Options</div>
+                <div class="title" id="options-title">Options</div>
                 <div id="difficulty-select-container">
                 <div id="difficulty-select-title">Select Difficulty</div>
                 <button class="difficulty-select" id="easy-button">Easy</button>
@@ -61,7 +68,7 @@
 
         <div class="layout-container" id="pause-container">
             <div id="pause-layout">
-                <div id="pause-title">Game Paused</div>
+                <div class="title" id="pause-title">Game Paused</div>
             </div>
             <button class="back-button" id="pause-back-button">Back</button>
         </div>
@@ -69,7 +76,7 @@
         <div id="layout">
             <div id="column1">
                 <div id="description">
-                    <div id="game-title">Weather Idle Game</div>
+                    <div class="title" id="game-title">Weather Idle Game</div>
                     <div id="defense-counter">
                         <img src="defenseicon.png" alt="Defense Icon"/>
                         <span id="defense-counter-text">Defense: 0 Units</span>
