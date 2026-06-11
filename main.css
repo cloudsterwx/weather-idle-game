@@ -329,7 +329,23 @@ html, body {
     margin-left: 15px;
 }
 
-.buy-button, .number-purchased {
+.buy-button {
+    font-size: 15px;
+    font-weight: bold;
+    background: rgba(209, 242, 255, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 3px solid rgb(255, 0, 0);
+    max-width: fit-content;
+    top: 0;
+    right: 0;
+    margin: 10px;
+    padding: 10px;
+}
+
+.number-purchased {
     font-size: 15px;
     font-weight: bold;
     background: rgba(209, 242, 255, 0.1);

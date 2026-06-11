@@ -191,6 +191,7 @@ document.getElementById("main-button").addEventListener("click", function(){
     }
     totalClicks++;
     updateStats();
+    updateBorders();
 });
 
 // object list for shop
@@ -226,8 +227,9 @@ function purchaseItem(name){
         document.getElementById("balance-counter-text").innerHTML = `Balance: ${Math.floor(coins)} Coins`;
         numberBought[name]++;
         showNotification(`Purchased one ${name}!`);
+        updateBorders();
     } else {
-        alert("Not enough coins to purchase this item!");
+        showNotification(`Not enough coins to purchase ${name}!`);
     }
     findTotalPurchases(name);
 }
@@ -383,6 +385,16 @@ function showNotification(message){
     notification.classList.add("show-notification");
 }
 
+function updateBorders(){
+    Object.keys(shopItems).forEach(item => {
+    if(getCost(item) < coins){
+        document.getElementById(`${item.toLowerCase()}-buy`).style.borderColor = "rgb(0, 255, 51)";
+    } else{
+        document.getElementById(`${item.toLowerCase()}-buy`).style.borderColor = "rgb(255, 0, 0)";
+    }
+    });
+}
+
 function tornadoAnimation(){
     let tornado = document.getElementById("tornado-effect");
     tornado.classList.remove("tornado");
@@ -470,6 +482,7 @@ function localStorageLoad(){
         Object.keys(shopItems).forEach(item => {
             document.getElementById(`${item.toLowerCase()}-purchased`).innerHTML = `Purchased: ${findTotalPurchases(item)}`;
             updatePrices(item);
+            updateBorders();
         });
     }
 }
