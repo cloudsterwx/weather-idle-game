@@ -1,6 +1,5 @@
 let stormArray = ["Thunderstorm", "Hurricane", "Tornado", "Blizzard", "Flood"];
 let stormLevels = ["", "Level 1", "Level 2", "Level 3", "Level 4", "Level 5"];
-
 let globalCount = 30;
 let coins = 0;
 let multiplier = 1;
@@ -8,10 +7,11 @@ let defense = 0;
 let idle = 0;
 let intensity = [1,2,3];
 let round = 1;
-let pause;
+let isPaused = false;
 let totalClicks = 0;
 let totalDefenseUsed = 0;
 let difficulty = "easy";
+let cooldown;
 
 borderWidth(`${difficulty}-button`);
 
@@ -132,7 +132,7 @@ document.getElementById("achievement-back-button").addEventListener("click", fun
         const startDelay = setTimeout(() => {
             container.style.display = "none";
         }, 200);
-        clearInterval(pause);
+        isPaused = false;
 });
 
 document.getElementById("options-back-button").addEventListener("click", function(){
@@ -141,7 +141,7 @@ document.getElementById("options-back-button").addEventListener("click", functio
         const startDelay = setTimeout(() => {
             container.style.display = "none";
         }, 200);
-        clearInterval(pause);
+        isPaused = false;
 });
 
 document.getElementById("stats-back-button").addEventListener("click", function(){
@@ -150,7 +150,7 @@ document.getElementById("stats-back-button").addEventListener("click", function(
         const startDelay = setTimeout(() => {
             container.style.display = "none";
         }, 200);
-        clearInterval(pause);
+        isPaused = false;
 });
 
 document.getElementById("pause-back-button").addEventListener("click", function(){
@@ -159,7 +159,7 @@ document.getElementById("pause-back-button").addEventListener("click", function(
             const startDelay = setTimeout(() => {
                 container.style.display = "none";
             }, 200);
-        clearInterval(pause);
+        isPaused = false;
     });
 
 document.getElementById("continue-button").addEventListener("click", function(){
@@ -168,9 +168,11 @@ document.getElementById("continue-button").addEventListener("click", function(){
 
 // idle coins + saving
 let idleInterval = setInterval(() => {
+    if(isPaused){return};
     coins = coins + idle;
     document.getElementById("balance-counter-text").innerHTML = `Balance: ${Math.floor(coins)} Coins`;
     localStorageSave();
+    updateBorders();
 }, 1000);
 
 // click = add coins
@@ -247,19 +249,14 @@ Object.keys(shopItems).forEach(item => {
     });
 });
 
-// takes current global count/coins and resets every 1s
 function pauseGame(){
-    let currentCount = globalCount;
-    let currentCoins = coins;
-    pause = setInterval(() => {
-        globalCount = currentCount;
-        coins = currentCoins;
-    }, 1000);
-}
+    isPaused = true;
+};
 
-// starts a storm every 30 seconds to increase game difficulty
+// starts a storm every x seconds (based on diff.)
 function continuousStorms(){
-    let cooldown = setInterval(() => {
+    cooldown = setInterval(() => {
+        if(isPaused){return};
         if (globalCount > 0){
             globalCount--;
             document.getElementById("start-wave").innerHTML = `Wave starting in ${globalCount}s...`;
@@ -323,6 +320,7 @@ function stormImpact(type, intensity){
     }
     let count = 0;
     let stormInterval = setInterval(() => {
+        if(isPaused){return};
         defense = defense - defenseSubtract / 10;
         document.getElementById("defense-counter-text").innerHTML = `Defense: ${Math.floor(defense)} Units`;
         if(defense < 0){
@@ -387,7 +385,7 @@ function showNotification(message){
 
 function updateBorders(){
     Object.keys(shopItems).forEach(item => {
-    if(getCost(item) < coins){
+    if(getCost(item) <= coins){
         document.getElementById(`${item.toLowerCase()}-buy`).style.borderColor = "rgb(0, 255, 51)";
     } else{
         document.getElementById(`${item.toLowerCase()}-buy`).style.borderColor = "rgb(255, 0, 0)";

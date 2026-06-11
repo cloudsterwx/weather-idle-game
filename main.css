@@ -110,7 +110,6 @@ html, body {
     font-weight: bold;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
     gap: 20px;
     flex: 3;
 }
@@ -366,6 +365,7 @@ html, body {
     justify-content: space-between;
     align-items: center;
     gap: 10px;
+    margin-right: 15px;
 }
 
 .item-desc {
