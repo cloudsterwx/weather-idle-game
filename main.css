@@ -632,3 +632,52 @@ html, body {
 .flood {
     animation: flood 3s ease-in;
 }
+
+.difficulty-select {
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    background: rgba(255, 255, 255, 1);
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    margin: 15px;
+}
+
+#difficulty-select-container {
+    font-weight: bold;
+    background: rgba(233, 249, 255, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 3px solid rgb(73, 73, 73);
+    margin: 10px;
+}
+
+#difficulty-select-title {
+    font-size: 20px;
+    padding: 15px;
+}
+
+#easy-button {
+    border: 3px solid rgb(0, 139, 16);
+}
+
+#medium-button {
+    border: 3px solid rgb(255, 234, 0);
+}
+
+#hard-button {
+    border: 3px solid rgb(255, 140, 0);
+}
+
+#challenge-button {
+    border: 3px solid rgb(255, 0, 0);
+}
+
+.difficulty-select:hover {
+    scale: 1.05;
+    transition: 113ms ease;
+}

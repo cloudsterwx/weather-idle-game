@@ -11,7 +11,9 @@ let round = 1;
 let pause;
 let totalClicks = 0;
 let totalDefenseUsed = 0;
+let difficulty = "easy";
 
+borderWidth(`${difficulty}-button`);
 
 document.getElementById("start-button").addEventListener("click", function(){
     const container = document.getElementById("start-container")
@@ -91,6 +93,37 @@ document.getElementById("pause-button").addEventListener("click", function(){
 
     pauseGame();
 });
+
+document.getElementById("easy-button").addEventListener("click", function(){
+    difficulty = "easy";
+    borderWidth("easy-button");
+});
+
+document.getElementById("medium-button").addEventListener("click", function(){
+    difficulty = "medium";
+    borderWidth("medium-button");
+});
+
+document.getElementById("hard-button").addEventListener("click", function(){
+    difficulty = "hard";
+    borderWidth("hard-button");
+});
+
+document.getElementById("challenge-button").addEventListener("click", function(){
+    difficulty = "challenge";
+    borderWidth("challenge-button");
+});
+
+// removes the wide borders from buttons not of the color input & makes such border thicker
+function borderWidth(button){
+    const buttons = ["easy-button", "medium-button", "hard-button", "challenge-button"];
+    document.getElementById(button).style.borderWidth = "5px";
+        const newButtonArray = buttons.filter(buttons => buttons !== button);
+        for (let i=0; i<3; i++){
+            const button = document.getElementById(newButtonArray[i]);
+            button.style.borderWidth = "3px";
+        }
+}
 
 // Function & animation with the main menu back buttons
 document.getElementById("achievement-back-button").addEventListener("click", function(){
@@ -378,7 +411,10 @@ function localStorageSave(){
         intensity: intensity,
         storms: storms,
         globalCount: globalCount,
-        totalDefenseUsed: totalDefenseUsed
+        totalDefenseUsed: totalDefenseUsed,
+        difficulty: difficulty,
+        round: round,
+        totalClicks: totalClicks,
     }
 
     console.log(gameState);
@@ -396,6 +432,9 @@ function localStorageLoad(){
         intensity = savedState.intensity;
         globalCount = savedState.globalCount;
         totalDefenseUsed = savedState.totalDefenseUsed;
+        difficulty = savedState.difficulty;
+        round = savedState.round;
+        totalClicks = savedState.totalClicks;
         let storms = savedState.storms;
         document.getElementById("balance-counter-text").innerHTML = `Balance: ${Math.floor(coins)} Coins`;
         document.getElementById("defense-counter-text").innerHTML = `Defense: ${Math.floor(defense)} Units`;
@@ -403,6 +442,8 @@ function localStorageLoad(){
         document.getElementById("storm1").innerHTML = `${storms[0]} - Intensity ${intensity[0].toFixed(1)}`;
         document.getElementById("storm2").innerHTML = `${storms[1]} - Intensity ${intensity[1].toFixed(1)}`;
         document.getElementById("storm3").innerHTML = `${storms[2]} - Intensity ${intensity[2].toFixed(1)}`;
+        borderWidth(`${difficulty}-button`);
+        updateStats();
         if(storms.length === 0){
         generateStorm();
         }
