@@ -374,6 +374,31 @@ function updatePrices(item){
     }
 }
 
+let achievements = {
+    "survivedTenRounds": false,
+    "survivedOneHundredRounds": false,
+    "survivedFiveHundredRounds": false,
+    "clickedOneHundredTimes": false,
+    "clickedOneThousandTimes": false,
+    "clickedTenThousandTimes": false,
+    "clickedOneHundredThousandTimes": false
+}
+
+function checkAchievements(){
+    if(round >= 10){
+        if(achievements.survivedTenRounds === true){return};
+        showNotification("New Achievement: Survived 10 Waves");
+        achievements.survivedTenRounds = true;
+    } else if(round >= 100){
+        if(achievements.survivedOneHundredRounds === true){return};
+        showNotification("New Achievement: Survived 100 Waves");
+        achievements.survivedOneHundredRounds = true;
+    } else if(round >= 500){
+        if(achievements.survivedFiveHundredRounds === true){return};
+        
+    }
+}
+
 function showNotification(message){
     let notification = document.getElementById("notifications");
     notification.classList.remove("show-notification");
