@@ -1,5 +1,4 @@
 let stormArray = ["Thunderstorm", "Hurricane", "Tornado", "Blizzard", "Flood"];
-let stormLevels = ["", "Level 1", "Level 2", "Level 3", "Level 4", "Level 5"];
 let globalCount = 30;
 let coins = 0;
 let multiplier = 1;
@@ -303,7 +302,7 @@ function findTotalPurchases(type){
 // calculates stuff based on the storm
 function stormImpact(type, intensity){
     const initialDefense = defense;
-    let defenseSubtract = intensity[0] * 50
+    let defenseSubtract = Math.pow(intensity[0], 1.5) * 50
     document.getElementById("storm-info").innerHTML = `Current Storm Wave: ${type} - Intensity ${intensity[0].toFixed(1)}`;
     if(type === "Tornado"){
         tornadoAnimation();
@@ -336,8 +335,8 @@ function stormImpact(type, intensity){
             const newDefense = defense;
             document.body.style.backgroundColor = "rgb(135, 206, 235)";
             updateStorm();
-            multiplier = multiplier + (1.5 * round);
-            idle = idle + (2.0 * round);
+            multiplier = multiplier + 1.5;
+            idle = idle + 0.5;
             document.getElementById("storm-info").innerHTML = `Current Storm Wave: N/A`;
             document.getElementById("multiplier").innerHTML = `Clicking Multiplier: ${multiplier.toFixed(2)}x | Idle: ${idle.toFixed(2)} coins per second`;
             if(difficulty === "easy"){
@@ -415,12 +414,6 @@ function floodAnimation(){
     flood.addEventListener("animationend", () => {
         flood.style.display = "none";
     }, {once: true});
-}
-
-function difficultyNumber(difficulty){
-    if(difficulty === "easy"){
-
-    }
 }
 
 function localStorageSave(){
