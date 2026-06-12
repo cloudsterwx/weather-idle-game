@@ -376,8 +376,8 @@ function updatePrices(item){
 
 let achievements = {
     "survivedTenRounds": false,
+    "survivedFiftyRounds": false,
     "survivedOneHundredRounds": false,
-    "survivedFiveHundredRounds": false,
     "clickedOneHundredTimes": false,
     "clickedOneThousandTimes": false,
     "clickedTenThousandTimes": false,
@@ -385,18 +385,34 @@ let achievements = {
 }
 
 function checkAchievements(){
-    if(round >= 10){
-        if(achievements.survivedTenRounds === true){return};
-        showNotification("New Achievement: Survived 10 Waves");
-        achievements.survivedTenRounds = true;
-    } else if(round >= 100){
-        if(achievements.survivedOneHundredRounds === true){return};
-        showNotification("New Achievement: Survived 100 Waves");
+    if(round >= 100 && achievements.survivedOneHundredRounds === false){
+        showNotification("New Achievement: Survived One Hundred Rounds");
         achievements.survivedOneHundredRounds = true;
-    } else if(round >= 500){
-        if(achievements.survivedFiveHundredRounds === true){return};
-        
+    } else if(round >= 50 && achievements.survivedFiftyRounds === false){
+        showNotification("New Achievement: Survived Fifty Rounds");
+        achievements.survivedFiftyRounds = true;
+    } else if(round >= 10 && achievements.survivedTenRounds === false){
+        showNotification("New Achievement: Survived Ten Rounds");
+        achievements.survivedTenRounds = true;
     }
+
+    if(totalClicks >= 100000 && achievements.clickedOneHundredThousandTimes === false){
+        showNotification("New Achievement: Clicked One Hundred Thousand Times");
+        achievements.clickedOneHundredThousandTimes = true;
+    } else if(totalClicks >= 10000 && achievements.clickedTenThousandTimes === false){
+        showNotification("New Achievement: Clicked Ten Thousand Times");
+        achievements.clickedTenThousandTimes = true;
+    } else if(totalClicks >= 1000 && achievements.clickedOneThousandTimes === false){
+        showNotification("New Achievement: Clicked One Thousand Times");
+        achievements.clickedOneThousandTimes = true;
+    } else if (totalClicks >= 100 && achievements.clickedOneHundredTimes === false){
+        showNotification("New Achievement: Clicked One Hundred Times");
+        achievements.clickedOneHundredTimes = true;
+    }
+}
+
+function updateAchievements(){
+    
 }
 
 function showNotification(message){

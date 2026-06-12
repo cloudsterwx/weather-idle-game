@@ -4,6 +4,7 @@ html, body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+/* glassmorphic css style adapted from https://macondo.hackclub.com/docs/api-homepage */
 #start-container {
     background: rgba(255,255,255,0.5);
     border-radius: 12px;
@@ -717,3 +718,14 @@ html, body {
     display: none;
 }
 
+.achievement-info {
+    background: rgb(255, 255, 255, 0.5);
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 10px;   
+    margin: 10px;
+    font-weight: bold;
+}
