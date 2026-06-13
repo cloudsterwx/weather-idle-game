@@ -10,6 +10,7 @@ let isPaused = false;
 let totalClicks = 0;
 let totalDefenseUsed = 0;
 let difficulty = "easy";
+let maxDefense = 0;
 let cooldown;
 
 borderWidth(`${difficulty}-button`);
@@ -184,7 +185,9 @@ let idleInterval = setInterval(() => {
     coins = coins + idle;
     document.getElementById("balance-counter-text").innerHTML = `Balance: ${Math.floor(coins)} Coins`;
     localStorageSave();
-    updateBorders();
+    updateShopBorders();
+    updateStats();
+    updateDefenseColor();
 }, 1000);
 
 // click = add coins
@@ -205,7 +208,7 @@ document.getElementById("main-button").addEventListener("click", function(){
     }
     totalClicks++;
     updateStats();
-    updateBorders();
+    updateShopBorders();
     checkAchievements();
 });
 
@@ -254,7 +257,8 @@ function purchaseItem(name){
         document.getElementById("balance-counter-text").innerHTML = `Balance: ${Math.floor(coins)} Coins`;
         numberBought[name]++;
         showNotification(`Purchased one ${name}!`);
-        updateBorders();
+        updateShopBorders();
+        updateDefenseColor();
     } else {
         showNotification(`Not enough coins to purchase a ${name}.`);
     }
@@ -350,6 +354,8 @@ function stormImpact(type, intensity){
         defense = defense - defenseSubtract / 10;
         document.getElementById("defense-counter-text").innerHTML = `Defense: ${Math.floor(defense)} Units`;
         if(defense < 0){
+            totalDefenseUsed = Math.floor(totalDefenseUsed + initialDefense);
+            updateStats();
             clearInterval(stormInterval);
             document.body.style.backgroundColor = "rgb(81, 0, 0)";
             setTimeout(() => {
@@ -379,6 +385,7 @@ function stormImpact(type, intensity){
             const defenseUsed = initialDefense - newDefense;
             totalDefenseUsed = Math.floor(totalDefenseUsed + defenseUsed);
             updateStats();
+            updateDefenseColor();
         }
     }, 250);
 }
@@ -386,6 +393,11 @@ function stormImpact(type, intensity){
 function updateStats(){
     document.getElementById("click-stats").innerHTML = `Total Clicks: ${totalClicks}`;
     document.getElementById("defense-stats").innerHTML = `Total Defense Used: ${totalDefenseUsed} Units`
+    document.getElementById("highest-defense-stats").innerHTML = `Highest Defense: ${findMaxDefense()} Units`
+
+    document.getElementById("game-over-click-stats").innerHTML = `Total Clicks: ${totalClicks}`;
+    document.getElementById("game-over-defense-stats").innerHTML = `Total Defense Used: ${totalDefenseUsed} Units`
+    document.getElementById("game-over-highest-defense-stats").innerHTML = `Highest Defense: ${findMaxDefense()} Units`
 };
 
 function getCost(item){
@@ -461,7 +473,7 @@ function showNotification(message){
     notification.classList.add("show-notification");
 }
 
-function updateBorders(){
+function updateShopBorders(){
     Object.keys(shopItems).forEach(item => {
     if(getCost(item) <= coins){
         document.getElementById(`${item.toLowerCase()}-buy`).style.borderColor = "rgb(0, 255, 51)";
@@ -507,6 +519,26 @@ function floodAnimation(){
     }, {once: true});
 }
 
+function findMaxDefense(){
+    const currentDefense = defense;
+    if(currentDefense > maxDefense){
+        maxDefense = currentDefense;
+    }
+    return maxDefense;
+}
+
+function updateDefenseColor(){
+    const requiredDefense = Math.pow(intensity[0], 1.5) * 50
+    const defenseCounter = document.getElementById("defense-counter");
+    if(defense >= requiredDefense){
+        defenseCounter.style.borderColor = "rgb(0, 255, 51)";
+    } else if (defense >= 0.75 * requiredDefense){
+        defenseCounter.style.borderColor = "rgb(255, 234, 0)";
+    } else{
+        defenseCounter.style.borderColor = "rgb(255, 0, 0)";
+    }
+}
+
 function localStorageSave(){
     const storm1 = document.getElementById("storm1").innerHTML.split(" - ")[0];
     const storm2 = document.getElementById("storm2").innerHTML.split(" - ")[0];
@@ -529,7 +561,8 @@ function localStorageSave(){
         difficulty: difficulty,
         round: round,
         totalClicks: totalClicks,
-        achievements: achievements
+        achievements: achievements,
+        maxDefense: maxDefense
     }
 
     console.log(gameState);
@@ -551,6 +584,7 @@ function localStorageLoad(){
         round = savedState.round;
         totalClicks = savedState.totalClicks;
         achievements = savedState.achievements;
+        maxDefense = savedState.maxDefense;
         let storms = savedState.storms;
         document.getElementById("balance-counter-text").innerHTML = `Balance: ${Math.floor(coins)} Coins`;
         document.getElementById("defense-counter-text").innerHTML = `Defense: ${Math.floor(defense)} Units`;
@@ -562,13 +596,14 @@ function localStorageLoad(){
         updateStats();
         checkAchievements();
         updateAchievementUI();
+        updateDefenseColor();
         if(storms.length === 0){
         generateStorm();
         }
         Object.keys(shopItems).forEach(item => {
             document.getElementById(`${item.toLowerCase()}-purchased`).innerHTML = `Purchased: ${findTotalPurchases(item)}`;
             updatePrices(item);
-            updateBorders();
+            updateShopBorders();
         });
     }
 }
