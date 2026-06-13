@@ -26,6 +26,7 @@ Within the game itself, there are two main forms of "currency": coins and defens
 - If you survive a storm cycle, your coins per click are increased. Additionally, you begin to receive some amount of idle coins every second (unless paused).
 - At any time, you can pause the game by clicking any option in the main menu.
 
+Some more things:
 - The difficulty can be adjusted in the in-game "Options" menu after starting the game.
 - The game autosaves to local storage every 1s, with no manual saving.
 - To restore progress from an autosave, press "Load From Save" on the start screen. "Start New Game" overwrites any previous save data.

@@ -193,6 +193,15 @@ document.getElementById("main-button").addEventListener("click", function(){
     totalClicks++;
     updateStats();
     updateBorders();
+    checkAchievements();
+});
+
+document.getElementById("win-buy").addEventListener("click", function(){
+    if(coins >= 100000000){
+
+    } else{
+        showNotification("Not enough coins to purchase a win.");
+    }
 });
 
 // object list for shop
@@ -230,7 +239,7 @@ function purchaseItem(name){
         showNotification(`Purchased one ${name}!`);
         updateBorders();
     } else {
-        showNotification(`Not enough coins to purchase ${name}!`);
+        showNotification(`Not enough coins to purchase a ${name}.`);
     }
     findTotalPurchases(name);
 }
@@ -385,34 +394,45 @@ let achievements = {
 }
 
 function checkAchievements(){
-    if(round >= 100 && achievements.survivedOneHundredRounds === false){
-        showNotification("New Achievement: Survived One Hundred Rounds");
-        achievements.survivedOneHundredRounds = true;
-    } else if(round >= 50 && achievements.survivedFiftyRounds === false){
-        showNotification("New Achievement: Survived Fifty Rounds");
-        achievements.survivedFiftyRounds = true;
-    } else if(round >= 10 && achievements.survivedTenRounds === false){
+    if(round >= 10 && !achievements.survivedTenRounds){
         showNotification("New Achievement: Survived Ten Rounds");
         achievements.survivedTenRounds = true;
+        updateAchievementUI()
+    } if(round >= 50 && !achievements.survivedFiftyRounds){
+        showNotification("New Achievement: Survived Fifty Rounds");
+        achievements.survivedFiftyRounds = true;
+        updateAchievementUI()
+    } if(round >= 100 && !achievements.survivedOneHundredRounds){
+        showNotification("New Achievement: Survived One Hundred Rounds");
+        achievements.survivedOneHundredRounds = true;
+        updateAchievementUI()
     }
 
-    if(totalClicks >= 100000 && achievements.clickedOneHundredThousandTimes === false){
-        showNotification("New Achievement: Clicked One Hundred Thousand Times");
-        achievements.clickedOneHundredThousandTimes = true;
-    } else if(totalClicks >= 10000 && achievements.clickedTenThousandTimes === false){
-        showNotification("New Achievement: Clicked Ten Thousand Times");
-        achievements.clickedTenThousandTimes = true;
-    } else if(totalClicks >= 1000 && achievements.clickedOneThousandTimes === false){
-        showNotification("New Achievement: Clicked One Thousand Times");
-        achievements.clickedOneThousandTimes = true;
-    } else if (totalClicks >= 100 && achievements.clickedOneHundredTimes === false){
+    if(totalClicks >= 100 && !achievements.clickedOneHundredTimes){
         showNotification("New Achievement: Clicked One Hundred Times");
         achievements.clickedOneHundredTimes = true;
+        updateAchievementUI()
+    } if(totalClicks >= 1000 && !achievements.clickedOneThousandTimes){
+        showNotification("New Achievement: Clicked One Thousand Times");
+        achievements.clickedOneThousandTimes = true;
+        updateAchievementUI()
+    } if(totalClicks >= 10000 && !achievements.clickedTenThousandTimes){
+        showNotification("New Achievement: Clicked Ten Thousand Times");
+        achievements.clickedTenThousandTimes = true;
+        updateAchievementUI()
+    } if(totalClicks >= 100000 && !achievements.clickedOneHundredThousandTimes){
+        showNotification("New Achievement: Clicked One Hundred Thousand Times");
+        achievements.clickedOneHundredThousandTimes = true;
+        updateAchievementUI()
     }
 }
 
-function updateAchievements(){
-    
+function updateAchievementUI(){
+    Object.keys(achievements).forEach(item => {
+        if(achievements[item]){
+            document.getElementById(`achievements-${item}`).style.display = "block";
+        }
+    });
 }
 
 function showNotification(message){
@@ -479,6 +499,7 @@ function localStorageSave(){
         difficulty: difficulty,
         round: round,
         totalClicks: totalClicks,
+        achievements: achievements
     }
 
     console.log(gameState);
@@ -499,6 +520,7 @@ function localStorageLoad(){
         difficulty = savedState.difficulty;
         round = savedState.round;
         totalClicks = savedState.totalClicks;
+        achievements = savedState.achievements;
         let storms = savedState.storms;
         document.getElementById("balance-counter-text").innerHTML = `Balance: ${Math.floor(coins)} Coins`;
         document.getElementById("defense-counter-text").innerHTML = `Defense: ${Math.floor(defense)} Units`;
@@ -508,6 +530,8 @@ function localStorageLoad(){
         document.getElementById("storm3").innerHTML = `${storms[2]} - Intensity ${intensity[2].toFixed(1)}`;
         borderWidth(`${difficulty}-button`);
         updateStats();
+        checkAchievements();
+        updateAchievementUI();
         if(storms.length === 0){
         generateStorm();
         }
