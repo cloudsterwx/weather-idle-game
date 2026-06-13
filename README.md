@@ -31,7 +31,7 @@ Some more things:
 - The game autosaves to local storage every 1s, with no manual saving.
 - To restore progress from an autosave, press "Load From Save" on the start screen. "Start New Game" overwrites any previous save data.
 - Clearing cookies & site data may result in save data being lost.
-To win, the user must purchase the final shop item, which costs 10 million coins.
+To win, the user must purchase the final shop item, which costs 100 million coins.
 
 ## Other notes
 - Because this project uses JavaScript, your browser must both support JavaScript and have JavaScript enabled. By extension, your browser should be adequately modern & up-to-date.

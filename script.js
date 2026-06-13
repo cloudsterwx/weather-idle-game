@@ -165,6 +165,19 @@ document.getElementById("continue-button").addEventListener("click", function(){
     window.location.reload();
 });
 
+document.getElementById("new-game-button").addEventListener("click", function(){
+    window.location.reload();
+});
+
+document.getElementById("win-continue-button").addEventListener("click", function(){
+    const container = document.getElementById("win-screen")
+    container.classList.add("remove");
+        const startDelay = setTimeout(() => {
+            container.style.display = "none";
+        }, 200);
+        isPaused = false;
+});
+
 // idle coins + saving
 let idleInterval = setInterval(() => {
     if(isPaused){return};
@@ -198,11 +211,15 @@ document.getElementById("main-button").addEventListener("click", function(){
 
 document.getElementById("win-buy").addEventListener("click", function(){
     if(coins >= 100000000){
-
+        coins = coins - 100000000
+        document.getElementById("win-screen").style.display = "flex";
+        pauseGame();
     } else{
         showNotification("Not enough coins to purchase a win.");
     }
 });
+
+
 
 // object list for shop
 const shopItems = {
@@ -317,6 +334,7 @@ function stormImpact(type, intensity){
         tornadoAnimation();
         document.body.style.backgroundColor = "rgb(112, 112, 112)";
     } else if (type === "Hurricane"){
+        hurricaneAnimation();
         document.body.style.backgroundColor = "rgb(0, 106, 255)";
     } else if (type === "Blizzard"){
         document.body.style.backgroundColor = "rgb(227, 227, 227)";
@@ -451,6 +469,18 @@ function updateBorders(){
         document.getElementById(`${item.toLowerCase()}-buy`).style.borderColor = "rgb(255, 0, 0)";
     }
     });
+}
+
+function hurricaneAnimation(){
+    let hurricane = document.getElementById("hurricane-effect");
+    hurricane.classList.remove("hurricane");
+    void hurricane.offsetWidth;
+    hurricane.style.display = "flex";
+    hurricane.classList.add("hurricane");
+
+    hurricane.addEventListener("animationend", () => {
+        hurricane.style.display = "none";
+    }, {once: true});
 }
 
 function tornadoAnimation(){
