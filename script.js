@@ -213,8 +213,8 @@ document.getElementById("main-button").addEventListener("click", function(){
 });
 
 document.getElementById("win-buy").addEventListener("click", function(){
-    if(coins >= 100000000){
-        coins = coins - 100000000
+    if(coins >= 10000000){
+        coins = coins - 10000000
         document.getElementById("win-screen").style.display = "flex";
         pauseGame();
     } else{
@@ -332,7 +332,7 @@ function findTotalPurchases(type){
 // calculates stuff based on the storm
 function stormImpact(type, intensity){
     const initialDefense = defense;
-    let defenseSubtract = Math.pow(intensity[0], 1.5) * 50
+    let defenseSubtract = Math.pow(intensity[0], 1.3) * 30
     document.getElementById("storm-info").innerHTML = `Current Storm Wave: ${type} - Intensity ${intensity[0].toFixed(1)}`;
     if(type === "Tornado"){
         tornadoAnimation();
@@ -386,6 +386,7 @@ function stormImpact(type, intensity){
             totalDefenseUsed = Math.floor(totalDefenseUsed + defenseUsed);
             updateStats();
             updateDefenseColor();
+            checkAchievements();
         }
     }, 250);
 }
@@ -528,12 +529,10 @@ function findMaxDefense(){
 }
 
 function updateDefenseColor(){
-    const requiredDefense = Math.pow(intensity[0], 1.5) * 50
+    const requiredDefense = Math.pow(intensity[0], 1.3) * 30
     const defenseCounter = document.getElementById("defense-counter");
     if(defense >= requiredDefense){
         defenseCounter.style.borderColor = "rgb(0, 255, 51)";
-    } else if (defense >= 0.75 * requiredDefense){
-        defenseCounter.style.borderColor = "rgb(255, 234, 0)";
     } else{
         defenseCounter.style.borderColor = "rgb(255, 0, 0)";
     }
