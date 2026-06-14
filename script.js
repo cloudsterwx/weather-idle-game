@@ -36,6 +36,7 @@ document.getElementById("load-save-button").addEventListener("click", function()
         }, 200);
     localStorageLoad();
     continuousStorms();
+    showNotification("Welcome back!");
     } else{
         alert("No save file found.");
     }
@@ -119,7 +120,7 @@ function borderWidth(button){
     const buttons = ["easy-button", "medium-button", "hard-button", "challenge-button"];
     document.getElementById(button).style.borderWidth = "5px";
         const newButtonArray = buttons.filter(buttons => buttons !== button);
-        for (let i=0; i<3; i++){
+        for (let i=0; i<newButtonArray.length; i++){
             const button = document.getElementById(newButtonArray[i]);
             button.style.borderWidth = "3px";
         }
@@ -213,8 +214,8 @@ document.getElementById("main-button").addEventListener("click", function(){
 });
 
 document.getElementById("win-buy").addEventListener("click", function(){
-    if(coins >= 10000000){
-        coins = coins - 10000000
+    if(coins >= 100000){
+        coins = coins - 100000;
         document.getElementById("win-screen").style.display = "flex";
         pauseGame();
     } else{
@@ -284,12 +285,12 @@ function pauseGame(){
 
 // starts a storm every x seconds (based on diff.)
 function continuousStorms(){
+    clearInterval(cooldown);
     cooldown = setInterval(() => {
         if(isPaused){return};
         if (globalCount > 0){
             globalCount--;
             document.getElementById("start-wave").innerHTML = `Wave starting in ${globalCount}s...`;
-            console.log(round);
         } else {
             let stormType = document.getElementById("storm1").innerHTML.split(" - ")[0];
             stormImpact(stormType, intensity);
@@ -357,10 +358,11 @@ function stormImpact(type, intensity){
             totalDefenseUsed = Math.floor(totalDefenseUsed + initialDefense);
             updateStats();
             clearInterval(stormInterval);
-            document.body.style.backgroundColor = "rgb(81, 0, 0)";
             setTimeout(() => {
                 document.getElementById("game-over-screen").style.display = "flex";
             }, 1000);
+            isPaused = true;
+            localStorage.removeItem("weatherIdleGameSave");
         }
         count++;
         if(count >= 10){
@@ -375,11 +377,11 @@ function stormImpact(type, intensity){
             if(difficulty === "easy"){
                 globalCount = 30;
             } else if(difficulty === "medium"){
-                globalCount = 25;
-            } else if(difficulty === "hard"){
                 globalCount = 20;
-            } else{
+            } else if(difficulty === "hard"){
                 globalCount = 15;
+            } else{
+                globalCount = 10;
             }
             continuousStorms();
             const defenseUsed = initialDefense - newDefense;
@@ -525,7 +527,7 @@ function findMaxDefense(){
     if(currentDefense > maxDefense){
         maxDefense = currentDefense;
     }
-    return maxDefense;
+    return Math.floor(maxDefense);
 }
 
 function updateDefenseColor(){
@@ -542,10 +544,6 @@ function localStorageSave(){
     const storm1 = document.getElementById("storm1").innerHTML.split(" - ")[0];
     const storm2 = document.getElementById("storm2").innerHTML.split(" - ")[0];
     const storm3 = document.getElementById("storm3").innerHTML.split(" - ")[0];
-    let storms = [storm1,storm2,storm3];
-    if(storm1 === "Storm 1") {
-        return;
-    }
 
     const gameState = {
         coins: coins,
@@ -564,7 +562,6 @@ function localStorageSave(){
         maxDefense: maxDefense
     }
 
-    console.log(gameState);
     localStorage.setItem("weatherIdleGameSave", JSON.stringify(gameState));
 }
 

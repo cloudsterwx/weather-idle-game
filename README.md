@@ -22,7 +22,7 @@ open index.html
 Within the game itself, there are two main forms of "currency": coins and defense units. The gameplay loop is overall quite simple:
 - Press the "Generate Coins" button to generate coins.
 - Use these coins to buy defenses in the form of items, which add a specified amount of defense units. The price of such items increases exponentially with purchases.
-- On a cycle, storms of different types will reduce your defenses. This cycle repeats in increments of 30s on easy difficulty, 25s on medium difficulty, 20s on hard difficulty, and 15s on challenge difficulty. The first wave is always 30 seconds long. **If your defense unit count drops below 0, you lose, a "Game Over" screen appears, and you must start over.**
+- On a cycle, storms of different types will reduce your defenses. This cycle repeats in increments of 30s on easy difficulty, 20s on medium difficulty, 15s on hard difficulty, and 10s on challenge difficulty. The first wave is always 30 seconds long. **If your defense unit count drops below 0, you lose, a "Game Over" screen appears, and you must start over.**
 - If you survive a storm cycle, your coins per click are increased. Additionally, you begin to receive some amount of idle coins every second (unless paused).
 - At any time, you can pause the game by clicking any option in the main menu.
 
@@ -31,7 +31,7 @@ Some more things:
 - The game autosaves to local storage every 1s, with no manual saving.
 - To restore progress from an autosave, press "Load From Save" on the start screen. "Start New Game" overwrites any previous save data.
 - Clearing cookies & site data may result in save data being lost.
-To win, the user must purchase the final shop item, which costs 10 million coins.
+- To win, the user must purchase the final shop item, which costs 100 thousand coins. The player can continue after winning.
 
 ## Other notes
 - Because this project uses JavaScript, your browser must both support JavaScript and have JavaScript enabled. By extension, your browser should be adequately modern & up-to-date.
