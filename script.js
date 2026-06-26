@@ -544,6 +544,7 @@ function localStorageSave(){
     const storm1 = document.getElementById("storm1").innerHTML.split(" - ")[0];
     const storm2 = document.getElementById("storm2").innerHTML.split(" - ")[0];
     const storm3 = document.getElementById("storm3").innerHTML.split(" - ")[0];
+    let storms = [storm1, storm2, storm3];
 
     const gameState = {
         coins: coins,
